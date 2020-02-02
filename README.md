@@ -1,24 +1,30 @@
-# README
+# Rails Template
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on rails template project with test and code analysis gems.
 
-Things you may want to cover:
+### Getting Started
 
-* Ruby version
+These instructions will get you a copy of the project up and running on your local machine.
 
-* System dependencies
+1. Clone rails template project
+  `git clone git@bitbucket.org:eagerworks/rails-template.git`
 
-* Configuration
+2. Change app name
+  - `sed -i '' 's/template/your_new_app_name/g' ".ruby-version"`
+  - `rails g rename:into your_new_app_name
+  - `cd ..; cd your_new_app_name`
+  - `bundle install`
 
-* Database creation
+3. Add ENV variables in /.env
+  - DB_USERNAME
+  - DB_PASSWORD
 
-* Database initialization
+4. Run migrations
+5. Start server
 
-* How to run the test suite
+### Instructions
 
-* Services (job queues, cache servers, search engines, etc.)
+Run static code analizis tools
+`rake code_analysis`
 
-* Deployment instructions
 
-* ...
