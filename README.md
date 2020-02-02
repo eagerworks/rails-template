@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 2. Change app name
   - `sed -i '' 's/template/your_new_app_name/g' ".ruby-version"`
-  - `rails g rename:into your_new_app_name
+  - `rails g rename:into your_new_app_name`
   - `cd ..; cd your_new_app_name`
   - `bundle install`
 
