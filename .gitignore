@@ -32,3 +32,6 @@ yarn-debug.log*
 
 # Ignore dot env file
 /.env
+
+# Ignore coverage folder
+/coverage/*
