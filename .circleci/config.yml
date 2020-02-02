@@ -27,9 +27,6 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo gem uninstall bundler
-      - run: sudo gem install bundler -v 2.0.2
-
       - run:
           name: install dependencies
           command: |
