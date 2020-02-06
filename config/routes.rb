@@ -3,7 +3,7 @@ Rails.application.routes.draw do
                       defaults: { format: :json },
                       controllers: {
                         registrations: 'api/v1/registrations',
-                        sessions: 'api/v1/sessions',
+                        sessions: 'api/v1/sessions'
                       }
 
   namespace :api, defaults: { format: 'json' } do
