@@ -27,4 +27,10 @@ These instructions will get you a copy of the project up and running on your loc
 Run static code analizis tools
 `rake code_analysis`
 
+### Versions
+
+1. Use `master` branch for a clean version of RoR with Rspec configuration, code analysis rake task and essential gems
+2. Use `api_template` branch for implementing APIs. It comes with jwt authentication and CORS configuration.
+3. Use `auth_template` branch for implementing a RoR project with user authentication using devise.
+
 
