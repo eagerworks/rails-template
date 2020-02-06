@@ -7,7 +7,7 @@ Ruby on rails template project with test and code analysis gems.
 These instructions will get you a copy of the project up and running on your local machine.
 
 1. Clone rails template project
-  `git clone git@bitbucket.org:eagerworks/rails-template.git`
+  `git clone git@github.com:eagerworks/rails-template.git`
 
 2. Change app name
   - `sed -i '' 's/template/your_new_app_name/g' ".ruby-version"`
