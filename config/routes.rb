@@ -5,4 +5,11 @@ Rails.application.routes.draw do
                         registrations: 'api/v1/registrations',
                         sessions: 'api/v1/sessions',
                       }
+
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+    end
+
+    match '*all', controller: 'api', action: 'cors_preflight_check', via: :options
+  end
 end
