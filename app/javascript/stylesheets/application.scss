@@ -1,0 +1,9 @@
+@import '~bootstrap/scss/bootstrap';
+
+.authentication-form {
+  background-color: theme-color('light');
+  border-radius: 6px;
+  max-width: 100%;
+  padding: 2rem;
+  width: 400px;
+}
