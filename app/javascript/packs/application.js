@@ -12,5 +12,13 @@ import JQuery from 'jquery';
 window.$ = window.JQuery = JQuery;
 
 import 'bootstrap';
+import '@fortawesome/fontawesome-free/js/all';
+
+import Chart from 'chart.js';
+
+require('./dashboard.js')
+require('./demo/chart_area_demo.js')
+require('./demo/chart_bar_demo.js')
+require('./demo/chart_pie_demo.js')
 
 require('../stylesheets/application.scss')

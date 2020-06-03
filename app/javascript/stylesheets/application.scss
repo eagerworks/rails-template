@@ -1,8 +1,20 @@
-@import '~bootstrap/scss/bootstrap';
+@import "variables.scss";
 
-.authentication-form {
-  max-width: 100%;
-  padding: 2rem;
-  padding-top: 100px;
-  width: 400px;
-}
+@import '~bootstrap/scss/bootstrap';
+@import '@fortawesome/fontawesome-free';
+
+@import "mixins.scss";
+@import "global.scss";
+@import "utilities.scss";
+
+// Custom Components
+@import "dropdowns.scss";
+@import "navs.scss";
+@import "buttons.scss";
+@import "cards.scss";
+@import "charts.scss";
+@import "login.scss";
+@import "error.scss";
+@import "footer.scss";
+
+
