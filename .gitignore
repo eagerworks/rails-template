@@ -13,6 +13,10 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignore test folder
+/test
+/ruby-version
+
 # Ignore uploaded files in development.
 /storage/*
 !/storage/.keep

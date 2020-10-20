@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get 'utilities_color', to: 'home#utilities_color'
   get 'utilities_other', to: 'home#utilities_other'
   root to: 'home#index'
+
+  resources :skills, only: [:new, :create]
 end

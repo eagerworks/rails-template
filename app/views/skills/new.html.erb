@@ -1,0 +1,51 @@
+<div id="page-top">
+  <div id="wrapper">
+    <%= render partial: 'shared/sidebar' %>
+    <div class="d-block w-100">
+      <%= render partial: 'shared/navbar' %>
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-10 col-xl-8">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+              <div class="row justify-content-center">
+                <div class="col-12 col-md-10 justify-content-center">
+                  <div class="p-5">
+                    <div class="text-center">
+                      <h1 class="h4 font-weight-bold text-gray-900 mb-4">Create an Skill</h1>
+                    </div>
+
+                    <%= form_with model: @skill, url: skills_path, method: 'post', local: true do |form| %>
+
+                      <% if @skill.present? && @skill.errors.any? %>
+                        <div class="text-center">
+                          <div class="font-weight-bold">Errors:</div>
+                          <ul>
+                            <% @skill.errors.full_messages.each do |msg| %>
+                              <li><%= msg %></li>
+                            <% end %>
+                          </ul>
+                        </div>
+                      <% end %>
+
+                      <div class="field my-4">
+                        <h5><%= form.label 'name', class: 'mb-0' %></h5>
+                        <%= form.text_field :name, class: 'rounded w-100 border px-2 form-control' %>
+                      </div>
+
+                      <div class="field my-4">
+                        <h5><%= form.label 'description (optional)', class: 'mb-0' %></h5>
+                        <%= form.text_field :description, class: 'rounded w-100 border px-2 form-control h-100' %>
+                      </div>
+
+                      <%= form.submit "Create", class: 'btn btn-primary mb-3 btn-user btn-block' %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
