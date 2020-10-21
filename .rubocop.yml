@@ -1,10 +1,32 @@
+# All cops
+
+AllCops:
+  TargetRubyVersion: 2.7.0
+  NewCops: 'enable'
+  Exclude:
+    - 'bin/*'
+    - 'config/initializers/backtrace_silencers.rb'
+    - 'config/initializers/content_security_policy.rb'
+    - 'node_modules/**/*'
+    - 'db/schema.rb'
+    - 'vendor/bundle/**/*'
+
+# Layout cops
+
 Layout/SpaceBeforeFirstArg:
   Exclude:
     - app/views/api/**/**/*
 
-Lint/AmbiguousBlockAssociation:
-  Exclude:
-    - spec/**/*
+Layout/LineLength:
+  Max: 100
+  # To make it possible to copy or click on URIs in the code, we allow lines
+  # containing a URI to be longer than Max.
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+
+# Metrics cops
 
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be an Integer or
@@ -38,21 +60,14 @@ Metrics/ModuleLength:
   CountComments: false  # count full line comments?
   Max: 200
 
-Layout/LineLength:
-  Max: 100
-  # To make it possible to copy or click on URIs in the code, we allow lines
-  # containing a URI to be longer than Max.
-  AllowURI: true
-  URISchemes:
-    - http
-    - https
-
 Metrics/ParameterLists:
   Max: 5
   CountKeywordArgs: true
 
 Metrics/PerceivedComplexity:
   Max: 12
+
+# Style cops
 
 Style/Documentation:
   Enabled: false
@@ -63,15 +78,11 @@ Style/FrozenStringLiteralComment:
 Style/ModuleFunction:
   Enabled: false
 
-AllCops:
-  TargetRubyVersion: 2.7.0
-  Exclude:
-    - 'bin/*'
-    - 'config/initializers/backtrace_silencers.rb'
-    - 'config/initializers/content_security_policy.rb'
-    - 'node_modules/**/*'
-    - 'db/schema.rb'
-    - 'vendor/bundle/**/*'
-
 Style/SymbolArray:
   Enabled: false
+
+# Lint cops
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/**/*
