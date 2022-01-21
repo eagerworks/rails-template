@@ -54,7 +54,7 @@ group :test do
   # Testing framework
   gem 'factory_bot_rails', '5.1.1'
   gem 'faker', '2.10.1'
-  gem 'rspec-rails', '3.9.0'
+  gem 'rspec-rails', '5.0.2'
   gem 'shoulda-matchers', '4.2.0'
   gem 'simplecov', '0.17.1'
 end
