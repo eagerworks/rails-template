@@ -1,37 +1,24 @@
-# Rails Template
+# README
 
-Ruby on rails template project with test and code analysis gems.
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-### Getting Started
+Things you may want to cover:
 
-These instructions will get you a copy of the project up and running on your local machine.
+* Ruby version
 
-1. Clone rails template project
-  `git clone git@github.com:eagerworks/rails-template.git`
+* System dependencies
 
-2. Change app name
-  - `sed -i '' 's/template/your_new_app_name/g' ".ruby-version"`
-  - `rails g rename:into your_new_app_name`
-  - `cd ..; cd your_new_app_name`
-  - `bundle install`
+* Configuration
 
-3. Add ENV variables in /.env
-  - DB_USERNAME
-  - DB_PASSWORD
+* Database creation
 
-4. Run migrations
-5. Start server
+* Database initialization
 
-### Instructions
+* How to run the test suite
 
-Run static code analizis tools
-`rake code_analysis`
+* Services (job queues, cache servers, search engines, etc.)
 
-### Versions
+* Deployment instructions
 
-1. Use `master` branch for a clean version of RoR with Rspec configuration, code analysis rake task and essential gems
-2. Use `api_template` branch for implementing APIs. It comes with jwt authentication and CORS configuration.
-3. Use `auth_template` branch for implementing a RoR project with user authentication using devise.
-4. Use `dashboard_template` branch for implementing a RoR project with user authentication and a dashboard UI.
-
-
+* ...
