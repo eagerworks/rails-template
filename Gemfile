@@ -60,6 +60,11 @@ group :development, :test do
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem 'brakeman', require: false
+
+  # Linters
+  gem 'rails_best_practices', '~> 1.23'
+  gem 'reek', '~> 6.4'
+  gem 'rubocop', '~> 1.70'
 end
 
 group :development do

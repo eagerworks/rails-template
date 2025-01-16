@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   scan_ruby:
@@ -34,8 +34,14 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Lint code for consistent style
-        run: bin/rubocop -f github
+      - name: Rubocop
+        run: rubocop
+
+      - name: Reek
+        run: reek
+
+      - name: Rails best practices
+        run: rails_best_practices
 
   test:
     runs-on: ubuntu-latest
