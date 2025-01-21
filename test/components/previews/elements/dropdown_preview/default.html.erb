@@ -1,0 +1,13 @@
+<%= render Elements::Dropdown.new(align: align) do |dropdown| %>
+  <%= content %>
+
+  <% dropdown.with_item(href: '#') do %>
+    Account settings
+  <% end %>
+  <% dropdown.with_item(href: '#') do %>
+    Support
+  <% end %>
+  <% dropdown.with_item(href: '#') do %>
+    License
+  <% end %>
+<% end %>

@@ -1,0 +1,37 @@
+<div class="<%= class_list('w-full', 'mt-2': margin) %>">
+  <% if show_label %>
+    <div class="mb-2">
+      <%= label %>
+    </div>
+  <% end %>
+
+  <div class="relative">
+    <% if left_icon? %>
+      <div class="<%= class_list('absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none', 'text-xl': size == 'lg' ) %>">
+        <%= left_icon %>
+      </div>
+    <% end %>
+
+    <%= text_field(object_name, name, class: classes, value: value, **attributes) %>
+
+    <% if error? %>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+        <%= heroicon 'exclamation-circle', options: { class: 'size-5 text-red-500' } %>
+      </div>
+    <% elsif right_icon? %>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+        <%= right_icon %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if error? %>
+    <p class="mt-2 text-sm text-red-600">
+      <%= error %>
+    </p>
+  <% elsif description? %>
+    <p class="mt-2 text-sm text-gray-500">
+      <%= description %>
+    </p>
+  <% end %>
+</div>

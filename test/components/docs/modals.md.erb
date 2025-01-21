@@ -1,0 +1,31 @@
+## Simple modal usage
+
+Modals can be given content through the `panel` slot, and opened through a button via stimulus:
+
+<%= embed('Overlays::ModalPreview', :default, panels: ['source']) %>
+
+## Turbo
+
+To use the modal via turbo, you need to give it the id of the turbo frame, and then
+add a link that targets that frame. The modal will automatically open with stimulus when
+the frame loads.
+
+If the modal contains a form, it will close automatically when the form is submitted.
+To avoid the modal from closing when the form has errors, you need to return a 422 status:
+
+
+```rb
+def create
+  @user = User.new(user_params)
+
+  if @user.create
+    render turbo_stream: turbo_stream.append(:users, @user)
+  else
+    render :new, status: :unprocessable_entity
+  end
+end
+```
+
+<%= embed('Overlays::ModalPreview', :turbo, panels: ['source']) %>
+
+You can check the component's source in it's [preview](<%= lookbook_inspect_path('overlays/modal/default') %>).

@@ -1,0 +1,3 @@
+<%= form_with model: user, url: '/' do |f| %>
+  <%= render Form::TextField.new(form: f, name: :email, label: label, type: type, placeholder: placeholder) %>
+<% end %>

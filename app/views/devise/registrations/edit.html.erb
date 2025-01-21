@@ -1,0 +1,44 @@
+<%= turbo_frame_tag @user do %>
+  <h2 class="text-base/7 font-semibold text-gray-900">Profile</h2>
+
+  <%= component_form_with(model: @user, url: user_registration_path, method: :put) do |f| %>
+    <div class="col-span-full flex items-center gap-x-8 mt-4" data-controller="image-input">
+      <%= image_tag @user.avatar, class: 'size-24 flex-none rounded-lg bg-gray-800 object-cover', data: { image_input_target: 'image' } %>
+      <div>
+        <%= button_component(variant: :secondary, type: :button) do %>
+          <%= f.label :avatar do %>
+            Change avatar
+          <% end %>
+        <% end %>
+        <%= f.file_field :avatar, class: 'hidden', data: { action: 'change->image-input#changeImage' } %>
+        <p class="mt-2 text-xs/5 text-gray-400">JPG, GIF or PNG. 1MB max.</p>
+      </div>
+    </div>
+
+
+    <%= f.text_field_component :full_name %>
+    <%= f.text_field_component :email, type: :email, autofocus: true, autocomplete: 'email' %>
+
+    <div class="mt-4">
+      <%= button_component do %>
+        Update
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<div>
+  <h2 class="text-base/7 font-semibold text-gray-900">Cancel account</h2>
+  <p class="mt-1 text-sm/6 text-gray-500">
+    This will permanently erase all data associated with your account.
+    This action cannot be undone.
+  </p>
+
+  <%= form_with url: user_registration_path, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete do |f| %>
+    <div class="mt-4">
+      <%= button_component(color: :red) do %>
+        Cancel my account
+      <% end %>
+    </div>
+  <% end %>
+</div>

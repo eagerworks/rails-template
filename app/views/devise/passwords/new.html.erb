@@ -1,0 +1,30 @@
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+    <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Forgot your password?</h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+    <%= card_component(padding: :lg) do %>
+      <%= component_form_with model: @user, url: user_password_path do |form| %>
+        <div class="space-y-6">
+          <%= form.text_field_component :email, label: 'Email address', autocomplete: 'email' %>
+
+          <%= button_component(width: :full) do %>
+            Send me reset password instructions
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <p class="mt-10 text-sm/6 flex justify-center gap-2 text-gray-500">
+      <%= link_component(href: new_user_session_path) do %>
+        Sign in
+      <% end %>
+      |
+      <%= link_component(href: new_user_registration_path) do %>
+        Sign up
+      <% end %>
+    </p>
+  </div>
+</div>

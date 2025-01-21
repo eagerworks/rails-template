@@ -1,0 +1,25 @@
+To instantiate the view components easier, you can aid yourself with view helpers:
+
+```rb
+module ViewComponentHelper
+  Dir.glob(Rails.root.join("app/components/**/*.rb")).each do |file|
+    root_dir = Rails.root.join("app/components")
+    relative_path = Pathname.new(file).relative_path_from(root_dir)
+    component_class = relative_path.to_s.gsub(".rb", "").camelize.constantize
+    component_name = File.basename(file, ".rb")
+
+    define_method("#{component_name}_component") do |*args, **kwargs, &block|
+      component_class.new(*args, **kwargs).render_in(self, &block)
+    end
+  end
+end
+```
+
+The helper methods have the name `<component name>_component`, and will instantiate the
+view components with the same arguments you send:
+
+```erb
+<%%= button_component(variant: :secondary, type: :button, data: { action: 'modal#close' }) do %>
+  Cancel
+<%% end %>
+```

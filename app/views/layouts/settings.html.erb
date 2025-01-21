@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'layouts/head' %>
+
+  <body class="bg-white">
+    <div class="min-h-screen">
+      <%= render 'layouts/header' %>
+      <%= render 'layouts/flash_messages' %>
+
+      <div class="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8">
+      <h1 class="sr-only">General Settings</h1>
+
+      <%= sidebar_component do |sidebar| %>
+        <% sidebar.with_item(href: edit_user_registration_path) do %>
+          <div class="flex items-center gap-3">
+            <%= heroicon 'user-circle', variant: :outline, options: { class: 'size-5' } %>
+            Profile
+          </div>
+        <% end %>
+        <% sidebar.with_item(href: edit_account_password_path) do %>
+          <div class="flex items-center gap-3">
+            <%= heroicon 'lock-closed', variant: :outline, options: { class: 'size-5' } %>
+            Password
+          </div>
+        <% end %>
+      <% end %>
+
+      <main class="px-4 py-16 sm:px-6 lg:flex-auto lg:px-0 lg:py-20">
+        <div class="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
+          <%= yield %>
+        </div>
+      </main>
+
+      <%= render 'layouts/footer' %>
+    </div>
+  </body>
+</html>

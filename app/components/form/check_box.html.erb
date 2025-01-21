@@ -1,0 +1,16 @@
+<div class="<%= class_list('relative flex items-start', 'mt-2': margin) %>">
+  <div class="flex h-6 items-center">
+    <%= check_box object_name, name, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600", checked: value, **attributes %>
+  </div>
+  <% if show_label %>
+    <div class="ml-3 text-sm/6 leading-6">
+      <%= label %>
+
+      <% if description? %>
+        <p class="text-gray-500">
+          <%= description %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

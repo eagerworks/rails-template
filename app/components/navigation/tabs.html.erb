@@ -1,0 +1,17 @@
+<div
+  data-controller="tabs"
+  data-tabs-selected-class="<%= selected_classes %>"
+>
+  <div class="border-b border-gray-200">
+    <nav
+      class="-mb-px flex space-x-8"
+      aria-label="Tabs"
+      x-ref="tablist"
+      role="tablist"
+    >
+      <% tabs.each do |tab| %>
+        <%= tab %>
+      <% end %>
+    </nav>
+  </div>
+</div>

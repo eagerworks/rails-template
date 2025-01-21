@@ -1,0 +1,27 @@
+<%# Pass the turbo frame id to the modal %>
+<%= modal_component(turbo_frame: :new_user) %>
+
+<%= card_component(padding: false) do |card| %>
+  <% card.with_header do %>
+    <div class="flex justify-between items-center">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Users</h3>
+
+      <%# Add a link to the modal's content %>
+      <%= link_button_component(href: new_user_path, data: { turbo_frame: :new_user }) do %>
+        New User
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= table_component do |table| %>
+    <thead>
+      <% table.with_header(align: :left).with_content('Email') %>
+      <% table.with_header_content('First name') %>
+      <% table.with_header_content('Last name') %>
+    </thead>
+
+    <tbody id="users">
+      <%= render users %>
+    </tbody>
+  <% end %>
+<% end %>

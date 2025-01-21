@@ -1,0 +1,43 @@
+<%= render Layout::Card.new(padding: false) do | table | %>
+  <%= render Layout::Table.new do | table | %>
+    <% table.with_header(align: :left).with_content('Date (Today)') %>
+    <% table.with_header(align: :left).with_content('Text') %>
+    <% table.with_header_content('Number') %>
+
+    <tr>
+      <%= render Layout::TableCell.new(align: :left) do %>
+        <%= DateTime.current.to_date %>
+      <% end %>
+      <%= render Layout::TableCell.new(align: :left) do %>
+        Some Text
+      <% end %>
+      <%= render Layout::TableCell.new do %>
+        100
+      <% end %>
+    </tr>
+
+    <tr>
+      <%= render Layout::TableCell.new(align: :left) do %>
+        <%= DateTime.current.to_date %>
+      <% end %>
+      <%= render Layout::TableCell.new(align: :left) do %>
+        Some Text 2
+      <% end %>
+      <%= render Layout::TableCell.new do %>
+        200
+      <% end %>
+    </tr>
+
+    <tr>
+      <%= render Layout::TableCell.new(align: :left) do %>
+        <%= DateTime.current.to_date %>
+      <% end %>
+      <%= render Layout::TableCell.new(align: :left) do %>
+        Some Text 3
+      <% end %>
+      <%= render Layout::TableCell.new do %>
+        300
+      <% end %>
+    </tr>
+  <% end %>
+<% end %>

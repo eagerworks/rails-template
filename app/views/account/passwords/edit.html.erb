@@ -1,0 +1,24 @@
+<div>
+  <h2 class="text-base/7 font-semibold text-gray-900">Change password</h2>
+
+  <%= turbo_frame_tag :edit_password do %>
+    <%= component_form_with(model: @user, url: account_password_path, method: :put) do |f| %>
+      <%= f.text_field_component :password, type: :password, autocomplete: 'new-password' do |field| %>
+        <% if @minimum_password_length %>
+          <% field.with_description do %>
+            <%= @minimum_password_length %> characters minimum
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= f.text_field_component :password_confirmation, type: :password, autocomplete: 'new-password' %>
+      <%= f.text_field_component :current_password, type: :password, autocomplete: 'current-password' do |field| %>
+        <% field.with_description_content('We need your current password to confirm your changes') %>
+      <% end %>
+      <div class="mt-4">
+        <%= button_component do %>
+          Change password
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

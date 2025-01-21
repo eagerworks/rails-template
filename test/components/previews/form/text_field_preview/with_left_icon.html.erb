@@ -1,0 +1,7 @@
+<%= render(Form::TextField.new(
+  name: :email, type: type, placeholder: placeholder, label: label, size: size,
+)) do |field| %>
+  <% field.with_left_icon do %>
+    <span class="<%= class_list('text-gray-500') %>">$</span>
+  <% end %>
+<% end %>

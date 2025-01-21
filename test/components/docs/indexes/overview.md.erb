@@ -1,0 +1,62 @@
+---
+priority: 1
+---
+
+We use [ransack](https://activerecord-hackery.github.io/ransack/) to add filters and
+sorting to a list. Also, for pagination, we use the [pagy](https://ddnexus.github.io/pagy/) gem.
+
+Here's an example:
+
+```rb
+# users_controller.rb
+
+def index
+  @query = User.ransack(params[:q])
+  @pagy, @users = pagy(@query.result, limit: 3)
+end
+```
+
+```erb
+<%%# users/index.html.erb %>
+
+<%%= card_component(padding: false) do |card| %>
+  <%% card.with_header do %>
+    <div class="flex justify-between items-center">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Users</h3>
+
+      <%%= search_form_for @query, data: { controller: 'search-form' } do |f| %>
+        <%%= search_field_component(form: f, name: :email_or_first_name_or_last_name_cont) %>
+      <%% end %>
+    </div>
+  <%% end %>
+
+  <div class="border-t border-gray-200">
+    <%%= table_component do |table| %>
+      <thead>
+        <%% table.with_header(align: :left) do %>
+          <%%= sort_link(@query, :email) %>
+        <%% end %>
+        <%% table.with_header do %>
+          <%%= sort_link(@query, :first_name) %>
+        <%% end %>
+        <%% table.with_header do %>
+          <%%= sort_link(@query, :last_name) %>
+        <%% end %>
+      </thead>
+
+      <tbody>
+        <%%= render @users %>
+      </tbody>
+    <%% end %>
+  </div>
+
+  <div class="border-t border-gray-200">
+    <%%= pagination_component(pagy: @pagy) %>
+  </div>
+<%% end %>
+```
+
+Check the [pagination](<%= lookbook_inspect_path('navigation/pagination/default') %>)
+and [search field](<%= lookbook_inspect_path('form/search_field/default') %>) components.
+
+<%= embed('Layout::TablePreview', :index) %>

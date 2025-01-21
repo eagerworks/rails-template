@@ -1,0 +1,7 @@
+<%= render Layout::Card.new(padding: false) do %>
+  <ul class="divide-y divide-gray-300">
+    <% items.each do |item| %>
+      <%= item %>
+    <% end %>
+  </ul>
+<% end %>

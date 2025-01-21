@@ -1,0 +1,10 @@
+<div class='w-1/2'>
+  <%= component_form_with(url: '/') do |form| %>
+    <%= form.select_component :currency do |select_component| %>
+      <% select_component.with_option(value: 'USD', label: 'US Dollars') %>
+      <% select_component.with_option(value: 'CAD', label: 'Canadian Dollars') %>
+      <% select_component.with_option(value: 'EUR', label: 'Euros') %>
+      <% select_component.with_option(value: 'GBP', label: 'British Pounds') %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,16 @@
+module ViewComponentHelper
+  Dir.glob(Rails.root.join('app/components/**/*.rb')).each do |file|
+    root_dir = Rails.root.join('app/components')
+    relative_path = Pathname.new(file).relative_path_from(root_dir)
+    component_class = relative_path.to_s.gsub('.rb', '').camelize.constantize
+    component_name = File.basename(file, '.rb')
+
+    define_method("#{component_name}_component") do |*args, **kwargs, &block|
+      component_class.new(*args, **kwargs).render_in(self, &block)
+    end
+  end
+
+  def component_form_with(**options, &block)
+    form_with(**options.merge(builder: FormBuilder), &block)
+  end
+end

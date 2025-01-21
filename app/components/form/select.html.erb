@@ -1,0 +1,14 @@
+<div class="<%= margin ? 'mt-2' : '' %>">
+  <% if show_label %>
+    <div class="mb-2">
+      <%= label %>
+    </div>
+  <% end %>
+
+  <%= select_tag(
+    field_name,
+    rendered_options,
+    class: "block w-full rounded-md border-0 py-1.5 pl-3 pr-10 ring-1 ring-inset text-gray-900 ring-gray-300 focus:ring-indigo-600 focus:ring-2 sm:text-sm/6 sm:leading-6",
+    **attributes
+  ) %>
+</div>

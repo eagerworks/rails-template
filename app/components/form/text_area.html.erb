@@ -1,0 +1,17 @@
+<div class="<%= margin ? 'mt-2' : '' %>">
+  <% if show_label %>
+    <div class="mb-2">
+      <%= label %>
+    </div>
+  <% end %>
+  <%= @form.text_area @name, class: classes, use_helpers: true, **attributes %>
+  <% if error? %>
+    <p class="mt-2 text-sm text-red-600">
+      <%= error %>
+    </p>
+  <% elsif description? %>
+    <p class="mt-2 text-sm text-gray-500">
+      <%= description %>
+    </p>
+  <% end %>
+</div>

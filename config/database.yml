@@ -19,10 +19,14 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-
 development:
-  <<: *default
-  database: rails_template_development
+  primary: &primary_dev
+    <<: *default
+    database: rails_template_dev
+  queue:
+    <<: *primary_dev
+    database: rails_template_dev_queue
+    migrations_paths: db/queue_migrate
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.

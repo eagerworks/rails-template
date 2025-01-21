@@ -53,6 +53,10 @@ gem 'pundit', '~> 2.4'
 
 gem 'ransack', '~> 4.2'
 
+gem 'view_component', '~> 3.21'
+
+gem 'heroicon', '~> 1.0'
+
 group :development, :test do
   # See
   # https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -69,6 +73,10 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'actioncable', '~> 8.0'
+  gem 'letter_opener', '~> 1.10'
+  gem 'listen', '~> 3.9'
+  gem 'lookbook', '~> 2.3'
   gem 'web-console'
 end
 

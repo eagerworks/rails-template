@@ -1,0 +1,19 @@
+<div class="rounded-md p-4 <%= bg_color %>">
+  <div class="flex">
+    <% if show_icon %>
+      <div class="shrink-0 <%= icon_color %>">
+        <%= heroicon icon, options: { class: 'size-5' } %>
+      </div>
+    <% end %>
+    <div class="<%= show_icon ? 'ml-3' : '' %>">
+      <% if title? %>
+        <h3 class="text-sm font-medium mb-2 <%= title_color %>">
+          <%= title %>
+        </h3>
+      <% end %>
+      <div class="text-sm <%= content_color %>">
+        <%= content %>
+      </div>
+    </div>
+  </div>
+</div>

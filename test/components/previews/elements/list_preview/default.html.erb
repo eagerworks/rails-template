@@ -1,0 +1,37 @@
+<%= render Elements::List.new do |list| %>
+  <% list.with_item do %>
+    <div class="flex justify-between items-center">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+        List Item 1
+      </p>
+    </div>
+  <% end %>
+  <% list.with_item do %>
+    <div class="flex justify-between items-center">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+        List Item 2
+      </p>
+    </div>
+  <% end %>
+  <% list.with_item do %>
+    <div class="flex justify-between items-center">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+        List Item 3
+      </p>
+    </div>
+  <% end %>
+  <% list.with_item do %>
+    <div class="flex justify-between items-center">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+        List Item 4
+      </p>
+    </div>
+  <% end %>
+  <% list.with_item do %>
+    <div class="flex justify-between items-center">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">
+        List Item 5
+      </p>
+    </div>
+  <% end %>
+<% end %>

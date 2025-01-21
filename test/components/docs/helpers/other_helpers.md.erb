@@ -1,0 +1,14 @@
+## Class list
+
+We use the `class_list` helper extensively throughout our components. It's a helper to help
+us concatenate classes together, and conditionally add them to the class list.
+
+```rb
+# class_list('block w-full rounded-md', 'ring-1 ring-inset', 'text-red-900 ring-red-300': error?)
+
+def class_list(*args, **kwargs)
+  conditional_classes = kwargs.keys.select { |key| kwargs[key] }
+  class_list = args + conditional_classes
+  class_list.join(" ")
+end
+```

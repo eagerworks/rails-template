@@ -1,0 +1,5 @@
+<div class="w-2/3">
+  <%= form_with url: '/' do |f| %>
+    <%= render Form::Toggle.new(form: f, show_label: false, name: :available) %>
+  <% end %>
+</div>

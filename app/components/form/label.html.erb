@@ -1,0 +1,9 @@
+<% if form.present? %>
+  <% if name.nil? %>
+    <%= form.label class: classes, **attributes %>
+  <% else %>
+    <%= form.label name, label, class: classes, **attributes %>
+  <% end %>
+<% else %>
+  <%= label_tag name, label, class: classes, **attributes %>
+<% end %>

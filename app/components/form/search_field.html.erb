@@ -1,0 +1,12 @@
+<div class="flex-shrink-0 flex items-center">
+  <div class="relative">
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <%= heroicon 'magnifying-glass', options: { class: 'h-5 w-5 text-gray-400' } %>
+    </div>
+    <%= @form.search_field @name,
+      placeholder: 'Search', use_helpers: true,
+      data: { action: 'input->search-form#search', turbo_permanent: true },
+      class: classes
+    %>
+  </div>
+</div>

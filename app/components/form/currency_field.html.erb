@@ -1,0 +1,28 @@
+<div class="<%= margin ? 'mt-2' : '' %>">
+  <% if show_label %>
+    <div class="mb-2">
+      <%= label %>
+    </div>
+  <% end %>
+
+  <div class="relative">
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <span class="text-gray-500 sm:text-sm">
+        $
+      </span>
+    </div>
+
+    <%= @form.text_field(
+      @name, class: classes, validationMessage: "Please enter a valid amount",
+      pattern: "^\\d+(\\.\\d{1,2})?$", placeholder: "0.00", use_helpers: true, **attributes
+    ) %>
+
+    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+      <span class="text-gray-500 sm:text-sm">
+        USD
+      </span>
+    </div>
+  </div>
+
+  <%= render Form::FieldError.new(error: @error) %>
+</div>

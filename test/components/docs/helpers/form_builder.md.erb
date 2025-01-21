@@ -1,0 +1,48 @@
+To build forms easier, and in a way that resembles normal rails forms, tou can add the following
+form builder to your project:
+
+```rb
+class FormBuilder < ActionView::Helpers::FormBuilder
+  def method_missing(method_name, *args, **kwargs, &block)
+    super and return unless method_name =~ /_component$/
+
+    component_name = method_name.to_s.gsub("_component", "")
+    method_class = "Form::#{component_name.camelize}".constantize
+
+    self.class.define_method(method_name) do |name, *args, **kw_args, &block|
+      method_class.new(*args, name: name, form: self, **kw_args)
+                                  .render_in(@template, &block)
+    end
+
+    send(method_name, *args, **kwargs, &block)
+  rescue NameError
+    raise NameError.new("missing form component: Form::#{component_name.camelize}")
+  end
+
+  def respond_to_missing?(method_name, include_private = false)
+    method_name =~ /_component$/ || super
+  end
+end
+```
+
+Also, you can add a helper to instantiate the form builder:
+
+```rb
+module ViewComponentHelper
+  def component_form_with(**options, &block)
+    form_with(**options.merge(builder: FormBuilder), &block)
+  end
+end
+```
+
+The builder expects to get sent the name of the field as the first argument, and it will pass
+any further arguments directly to the component.
+
+```erb
+<%%= component_form_with model: @user do |form| %>
+  <%%= form.text_field_component :email, type: :email %>
+<%% end %>
+```
+
+To add new field components, you need to create them inside of the `Form` module for the builder
+to pick them up.

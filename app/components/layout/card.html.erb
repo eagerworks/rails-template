@@ -1,0 +1,17 @@
+<div class="<%= classes %>">
+  <% if header? %>
+    <div class="px-4 py-5 sm:px-6">
+      <%= header %>
+    </div>
+  <% end %>
+
+  <div class="<%= padding_classes %>">
+    <%= content %>
+  </div>
+
+  <% if footer? %>
+    <div class="bg-gray-50 flex items-center justify-end gap-x-6 border-t border-gray-200 px-4 py-4 sm:px-6">
+      <%= footer %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<table class="min-w-full divide-y divide-gray-300">
+  <thead class="bg-gray-50">
+    <tr>
+      <% headers.each do |header| %>
+        <%= header %>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody class="text-sm text-gray-900 divide-y divide-gray-200 bg-white">
+    <%= content %>
+  </tbody>
+</table>
