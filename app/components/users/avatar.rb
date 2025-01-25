@@ -2,9 +2,10 @@
 
 module Users
   class Avatar < ViewComponent::Base
-    def initialize(user:)
+    def initialize(user: nil, account: nil)
       super
 
+      @account = account
       @user = user
     end
 
@@ -17,9 +18,21 @@ module Users
     end
 
     def avatar_url
+      if @account.present?
+        return url_for(@account.avatar.variant(:thumb))
+      end
+
       return url_for(@user.avatar.variant(:thumb)) if @user.avatar.attached?
 
       gravatar_url
+    end
+
+    def initials
+      @account.name.split(' ').first(2).map(&:first).join.upcase
+    end
+
+    def avatar?
+      @user.present? || @account&.avatar&.attached?
     end
   end
 end

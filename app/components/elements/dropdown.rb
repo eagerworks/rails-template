@@ -28,17 +28,23 @@ module Elements
       end
     end
 
-    class DropdownItem < ViewComponent::Base
-      def initialize(href:)
-        super
+    class DropdownItem < Base
+      def initialize(href:, **attributes)
+        super(**attributes)
 
         @href = href
       end
 
       erb_template <<~ERB
-        <a href="<%= @href %>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:outline-none" role="menuitem" tabindex="-1">
+        <%= link_to(
+          @href,
+          class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:outline-none',
+          role: 'menuitem',
+          tabindex: -1,
+          **attributes
+        ) do %>
           <%= content %>
-        </a>
+        <% end %>
       ERB
     end
   end

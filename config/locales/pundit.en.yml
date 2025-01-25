@@ -1,0 +1,5 @@
+en:
+  pundit:
+    default: You are not authorized to perform this action.
+    account_user_policy:
+      destroy?: You can't delete the owner of the account

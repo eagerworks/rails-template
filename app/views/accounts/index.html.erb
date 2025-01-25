@@ -1,0 +1,14 @@
+<%= card_component do |card| %>
+  <% card.with_header do %>
+    <div class="flex justify-between">
+      <h2 class="text-base/7 font-semibold text-gray-900">Accounts</h2>
+      <%= link_button_component(href: new_account_path) do %>
+        New account
+      <% end %>
+    </div>
+  <% end %>
+
+  <ul class="divide-y divide-gray-900/10">
+    <%= render @accounts %>
+  </ul>
+<% end %>

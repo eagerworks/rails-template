@@ -2,7 +2,7 @@
   <h2 class="text-base/7 font-semibold text-gray-900">Change password</h2>
 
   <%= turbo_frame_tag :edit_password do %>
-    <%= component_form_with(model: @user, url: account_password_path, method: :put) do |f| %>
+    <%= component_form_with(model: @user, url: accounts_password_path, method: :put) do |f| %>
       <%= f.text_field_component :password, type: :password, autocomplete: 'new-password' do |field| %>
         <% if @minimum_password_length %>
           <% field.with_description do %>

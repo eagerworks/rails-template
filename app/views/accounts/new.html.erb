@@ -1,0 +1,28 @@
+<%= card_component do |card| %>
+  <% card.with_header do %>
+    <div class="flex items-center gap-2">
+      <h2 class="text-base/7 font-semibold">
+        <%= link_component(href: accounts_path) do %>
+          Accounts
+        <% end %>
+      </h2>
+
+      <%= heroicon 'chevron-right', options: { class: 'size-5 text-gray-400' } %>
+
+      <h2 class="text-base/7 font-semibold text-gray-900">
+        New
+      </h2>
+    </div>
+  <% end %>
+
+  <%= component_form_with(model: @account) do |form| %>
+    <%= form.text_field_component :name %>
+    <%= form.image_input_component :avatar %>
+
+    <div class="mt-4">
+      <%= button_component do %>
+        Create
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

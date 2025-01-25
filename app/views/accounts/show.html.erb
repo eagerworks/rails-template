@@ -1,0 +1,18 @@
+<%= card_component(padding: :none) do |card| %>
+  <% card.with_header do %>
+    <div class="flex items-center gap-3">
+      <%= avatar_component(account: @account) %>
+      <h2 class="text-base/7 font-semibold">
+        <%= @account.name %>
+      </h2>
+    </div>
+  <% end %>
+
+  <%= table_component do |table| %>
+    <% table.with_header(align: :left).with_content('User') %>
+    <% table.with_header_content('Role') %>
+    <% table.with_header_content('') %>
+
+    <%= render @account.account_users %>
+  <% end %>
+<% end %>

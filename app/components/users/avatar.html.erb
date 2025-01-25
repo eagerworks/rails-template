@@ -1,1 +1,7 @@
-<img class="inline-block size-8 rounded-full" src="<%= avatar_url %>" alt="Avatar">
+<% if avatar? %>
+  <img class="inline-block size-8 rounded-full" src="<%= avatar_url %>" alt="Avatar">
+<% else %>
+  <div class="size-8 flex items-center justify-center rounded-full bg-indigo-600 text-white">
+    <%= initials %>
+  </div>
+<% end %>

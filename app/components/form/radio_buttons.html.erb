@@ -1,0 +1,8 @@
+<fieldset class="mt-2">
+  <legend class="text-sm/6 font-semibold text-gray-900"><%= @label || name.to_s.titleize %></legend>
+  <div class="mt-2 space-y-1">
+    <% options.each do |option| %>
+      <%= option %>
+    <% end %>
+  </div>
+</fieldset>

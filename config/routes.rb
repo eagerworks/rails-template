@@ -10,9 +10,14 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  namespace :account do
+  namespace :accounts do
     resource :password, only: [:edit, :update]
   end
+
+  resources :accounts do
+    patch :switch
+  end
+  resources :account_users, path: 'members', only: [:edit, :update, :destroy]
 
   # Render dynamic PWA files from app/views/pwa/*
   # (remember to link manifest in application.html.erb)

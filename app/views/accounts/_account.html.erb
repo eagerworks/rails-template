@@ -1,0 +1,19 @@
+<li class="flex justify-between p-3">
+  <div class="flex gap-4 items-center">
+    <%= avatar_component(account: account) %>
+    <%= link_component(href: url_for(account)) do %>
+      <%= account.name %>
+    <% end %>
+    <% if Current.account == account %>
+      <%= badge_component do %>
+        Current
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if Current.account != account %>
+    <%= link_button_component(href: account_switch_path(account, return_to: request.path), data: { turbo_method: :patch }, variant: :secondary) do %>
+      Switch
+    <% end %>
+  <% end %>
+</li>

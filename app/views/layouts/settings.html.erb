@@ -17,10 +17,16 @@
             Profile
           </div>
         <% end %>
-        <% sidebar.with_item(href: edit_account_password_path) do %>
+        <% sidebar.with_item(href: edit_accounts_password_path) do %>
           <div class="flex items-center gap-3">
             <%= heroicon 'lock-closed', variant: :outline, options: { class: 'size-5' } %>
             Password
+          </div>
+        <% end %>
+        <% sidebar.with_item(href: accounts_path, controllers: ['accounts', 'account_users']) do %>
+          <div class="flex items-center gap-3">
+            <%= heroicon 'users', variant: :outline, options: { class: 'size-5' } %>
+            Accounts
           </div>
         <% end %>
       <% end %>

@@ -1,0 +1,23 @@
+<tr>
+  <%= table_cell_component(align: :left) do %>
+    <div class="flex gap-2 items-center">
+      <%= avatar_component(user: account_user) %>
+      <%= account_user.full_name %>
+      <% if account_user.owner? %>
+        <%= badge_component do %>
+          Owner
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= table_cell_component do %>
+    <%= account_user.role.titleize %>
+  <% end %>
+  <%= table_cell_component(align: :right) do %>
+    <% if policy(account_user).edit? %>
+      <%= link_button_component(href: edit_account_user_path(account_user)) do %>
+        Edit
+      <% end %>
+    <% end %>
+  <% end %>
+</tr>

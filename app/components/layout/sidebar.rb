@@ -5,14 +5,15 @@ module Layout
     renders_many :items, 'SidebarItem'
 
     class SidebarItem < Base
-      def initialize(href:)
+      def initialize(href:, controllers: [])
         super
 
+        @controllers = controllers
         @href = href
       end
 
       def current?
-        current_page?(@href)
+        current_page?(@href) || @controllers.any? { |controller| controller_name == controller }
       end
 
       def classes
