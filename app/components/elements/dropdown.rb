@@ -2,6 +2,7 @@
 
 module Elements
   class Dropdown < Base
+    renders_many :sections, 'DropdownSection'
     renders_many :items, 'DropdownItem'
     renders_one :button
 
@@ -45,6 +46,18 @@ module Elements
         ) do %>
           <%= content %>
         <% end %>
+      ERB
+    end
+
+    class DropdownSection < Base
+      renders_many :items, DropdownItem
+
+      erb_template <<~ERB
+        <div class="py-1" role="none">
+          <% items.each do |item| %>
+            <%= item %>
+          <% end %>
+        </div>
       ERB
     end
   end

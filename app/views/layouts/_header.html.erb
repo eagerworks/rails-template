@@ -40,17 +40,22 @@
           <%= avatar_component(user: current_user) %>
         <% end %>
 
-        <% dropdown.with_item(href: edit_user_registration_path) do %>
-          Profile
+        <%= dropdown.with_section do |section| %>
+          <% section.with_item(href: edit_user_registration_path) do %>
+            Profile
+          <% end %>
+          <% section.with_item(href: edit_accounts_password_path) do %>
+            Change password
+          <% end %>
+          <% section.with_item(href: accounts_path) do %>
+            Accounts
+          <% end %>
         <% end %>
-        <% dropdown.with_item(href: edit_accounts_password_path) do %>
-          Change password
-        <% end %>
-        <% dropdown.with_item(href: accounts_path) do %>
-          Accounts
-        <% end %>
-        <% dropdown.with_item(href: destroy_user_session_path, data: { turbo_method: 'delete' }) do %>
-          Log out
+
+        <%= dropdown.with_section do |section| %>
+          <% section.with_item(href: destroy_user_session_path, data: { turbo_method: 'delete' }) do %>
+            Log out
+          <% end %>
         <% end %>
       <% end %>
     <% else %>

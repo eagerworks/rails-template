@@ -35,17 +35,22 @@
 
   <div
     data-dropdown-target="dropdown"
-    class="<%= align_classes %> absolute z-10 mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden transition duration-100 ease-in opacity-0 scale-95"
+    class="<%= align_classes %> absolute z-10 mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden transition duration-100 ease-in opacity-0 scale-95 divide-y divide-gray-100"
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="menu-button"
     tabindex="-1"
     id="dropdown"
   >
-    <div class="py-1" role="none">
-      <% items.each do |item| %>
-        <%= item %>
-      <% end %>
-    </div>
+    <% if items? %>
+      <div class="py-1" role="none">
+        <% items.each do |item| %>
+          <%= item %>
+        <% end %>
+      </div>
+    <% end %>
+    <% sections.each do |section| %>
+      <%= section %>
+    <% end %>
   </div>
 </div>
