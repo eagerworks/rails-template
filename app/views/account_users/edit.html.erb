@@ -33,8 +33,10 @@
       <%= button_component(disabled: !policy(@account_user).update?) do %>
         Update
       <% end %>
-      <%= link_button_component(href: url_for(@account_user), data: { turbo_method: 'delete' }, color: :red) do %>
-        Delete
+      <% if policy(@account_user).destroy? %>
+        <%= link_button_component(href: url_for(@account_user), data: { turbo_method: 'delete' }, color: :red) do %>
+          Delete
+        <% end %>
       <% end %>
     </div>
   <% end %>

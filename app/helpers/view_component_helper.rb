@@ -13,4 +13,10 @@ module ViewComponentHelper
   def component_form_with(**options, &block)
     form_with(**options.merge(builder: FormBuilder), &block)
   end
+
+  def button_component_to(content, path, **kwargs)
+    form_with(url: path) do
+      Elements::Button.new(**kwargs).with_content(content).render_in(self)
+    end
+  end
 end

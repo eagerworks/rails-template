@@ -8,7 +8,8 @@ class AccountUsersController < ApplicationController
 
   def update
     if @account_user.update(account_user_params)
-      redirect_to account_path(@account_user.account), notice: 'Account user was successfully updated.'
+      redirect_to account_path(@account_user.account),
+                  notice: 'Account user was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -18,7 +19,7 @@ class AccountUsersController < ApplicationController
     @account_user.destroy
 
     redirect_to account_path(@account_user.account),
-      notice: 'Account user was successfully removed.'
+                notice: 'Account user was successfully removed.'
   end
 
   private

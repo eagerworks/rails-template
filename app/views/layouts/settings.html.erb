@@ -23,7 +23,7 @@
             Password
           </div>
         <% end %>
-        <% sidebar.with_item(href: accounts_path, controllers: ['accounts', 'account_users']) do %>
+        <% sidebar.with_item(href: accounts_path, controllers: ['accounts', 'account_users', 'account_invitations']) do %>
           <div class="flex items-center gap-3">
             <%= heroicon 'users', variant: :outline, options: { class: 'size-5' } %>
             Accounts

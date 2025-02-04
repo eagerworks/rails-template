@@ -4,6 +4,9 @@
 
 import { application } from "./application";
 
+import CopyButtonController from "./copy_button_controller";
+application.register("copy-button", CopyButtonController);
+
 import DropdownController from "./dropdown_controller";
 application.register("dropdown", DropdownController);
 

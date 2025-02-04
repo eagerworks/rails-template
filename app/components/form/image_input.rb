@@ -9,9 +9,7 @@ module Form
     end
 
     def image_url
-      unless attached?
-        return ''
-      end
+      return '' unless attached?
 
       object.send(name)
     end

@@ -26,8 +26,7 @@ class AccountsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def switch
     session[:account_id] = @account.id

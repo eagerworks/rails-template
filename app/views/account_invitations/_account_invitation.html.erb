@@ -1,0 +1,33 @@
+<tr>
+  <%= table_cell_component(align: :left) do %>
+    <div class="flex gap-2 items-center">
+      <%= avatar_component(name: account_invitation.name) %>
+      <%= account_invitation.name %>
+      <%= badge_component(color: :yellow) do %>
+        Invitation pending
+      <% end %>
+    </div>
+  <% end %>
+  <%= table_cell_component do %>
+    <%= account_invitation.role.titleize %>
+  <% end %>
+  <%= table_cell_component(align: :right) do %>
+    <% if policy(account_invitation).edit? %>
+      <div class="flex gap-2 justify-end">
+        <%= button_component_to(
+          'Resend invitation',
+          resend_account_account_invitation_path(account_invitation.account, account_invitation),
+          variant: :secondary
+        ) %>
+        <div data-controller="copy-button" data-copy-button-text-value="<%= account_invitation_url(account_invitation) %>">
+          <%= button_component(variant: :secondary, type: :button, data: { action: 'copy-button#copy' }) do %>
+            Copy link
+          <% end %>
+        </div>
+        <%= link_button_component(href: edit_account_account_invitation_path(account_invitation.account, account_invitation)) do %>
+          Edit
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</tr>

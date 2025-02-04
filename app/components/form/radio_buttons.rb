@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Form
   class RadioButtons < Input
     renders_many :options, lambda { |value:, label: nil|

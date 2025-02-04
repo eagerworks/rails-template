@@ -6,7 +6,7 @@
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
     <%= card_component(padding: :lg) do %>
-      <%= component_form_with model: @user, url: user_registration_path do |form| %>
+      <%= component_form_with model: @user, url: user_registration_path(invite: params[:invite]) do |form| %>
         <div class="space-y-6">
           <%= form.text_field_component :full_name %>
           <%= form.text_field_component :email, label: 'Email address', autocomplete: 'email' %>

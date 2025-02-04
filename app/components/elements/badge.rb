@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Elements
   class Badge < Base
     def initialize(color: :indigo)

@@ -5,8 +5,7 @@ module Accounts
     before_action :authenticate_user!
     before_action :load_user
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @user.update_with_password(password_params)

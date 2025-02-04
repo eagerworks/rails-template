@@ -16,8 +16,17 @@ Rails.application.routes.draw do
 
   resources :accounts do
     patch :switch
+
+    resources :account_invitations,
+              path: 'invitations', module: :accounts,
+              only: [:new, :create, :edit, :update, :destroy] do
+      member do
+        post :resend
+      end
+    end
   end
   resources :account_users, path: 'members', only: [:edit, :update, :destroy]
+  resources :account_invitations, only: [:show, :update, :destroy]
 
   # Render dynamic PWA files from app/views/pwa/*
   # (remember to link manifest in application.html.erb)

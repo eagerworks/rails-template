@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_23_141245) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_25_103356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "account_invitations", force: :cascade do |t|
+    t.string "token"
+    t.bigint "account_id", null: false
+    t.bigint "invited_by_id", null: false
+    t.string "name"
+    t.string "email"
+    t.integer "role", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_invitations_on_account_id"
+    t.index ["invited_by_id"], name: "index_account_invitations_on_invited_by_id"
+  end
 
   create_table "account_users", force: :cascade do |t|
     t.bigint "account_id", null: false
@@ -77,6 +90,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_23_141245) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "account_invitations", "accounts"
+  add_foreign_key "account_invitations", "users", column: "invited_by_id"
   add_foreign_key "account_users", "accounts"
   add_foreign_key "account_users", "users"
   add_foreign_key "accounts", "users", column: "owner_id"

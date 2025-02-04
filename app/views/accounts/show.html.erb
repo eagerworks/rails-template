@@ -14,5 +14,14 @@
     <% table.with_header_content('') %>
 
     <%= render @account.account_users %>
+    <%= render @account.account_invitations %>
+  <% end %>
+
+  <% if policy(@account.account_invitations.build).new? %>
+    <div class="mt-4 px-4 pb-4">
+      <%= link_button_component(href: new_account_account_invitation_path(@account)) do %>
+        Invite user
+      <% end %>
+    </div>
   <% end %>
 <% end %>

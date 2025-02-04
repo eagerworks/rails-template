@@ -1,4 +1,4 @@
-class AccountUserPolicy < ApplicationPolicy
+class AccountInvitationPolicy < ApplicationPolicy
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
   # `Scope < Scope` rather than `Scope < ApplicationPolicy::Scope`.
   # In most cases the behavior will be identical, but if updating existing
@@ -6,20 +6,23 @@ class AccountUserPolicy < ApplicationPolicy
   # https://gist.github.com/Burgestrand/4b4bc22f31c8a95c425fc0e30d7ef1f5
 
   def admin?
-    account = record.account
-    account.account_users.where(user: user, role: :admin).exists?
+    record.account.account_users.where(user: user, role: :admin).exists?
   end
 
-  def edit?
-    admin?
+  def create?
+    admin? && !record.account.personal
   end
 
   def update?
-    admin? && !record.owner?
+    admin?
+  end
+
+  def resend?
+    admin?
   end
 
   def destroy?
-    (record.user == user || admin?) && !record.owner?
+    admin?
   end
 
   class Scope < ApplicationPolicy::Scope

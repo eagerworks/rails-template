@@ -4,6 +4,7 @@ class AccountUser < ApplicationRecord
 
   delegate :avatar, to: :user
   delegate :full_name, to: :user
+  delegate :email, to: :user
 
   enum :role, { member: 0, admin: 1 }
 

@@ -9,7 +9,7 @@
       </button>
       <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
 
-      <% if current_user.multi_account? %>
+      <% if user_signed_in? && current_user.multi_account? %>
         <%= dropdown_component do |dropdown| %>
           <% dropdown.with_button do %>
             <div class="flex items-center gap-4">

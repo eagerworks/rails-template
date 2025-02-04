@@ -8,7 +8,7 @@ AllCops:
     - "config/initializers/backtrace_silencers.rb"
     - "config/initializers/content_security_policy.rb"
     - "node_modules/**/*"
-    - "db/schema.rb"
+    - "db/*schema.rb"
     - "vendor/bundle/**/*"
 
 # Layout cops
