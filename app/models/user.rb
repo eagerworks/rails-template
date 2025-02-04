@@ -21,4 +21,8 @@ class User < ApplicationRecord
   def multi_account?
     accounts.count > 1
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[email full_name admin]
+  end
 end

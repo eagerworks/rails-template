@@ -52,6 +52,14 @@
           <% end %>
         <% end %>
 
+        <% if current_user.admin? %>
+          <%= dropdown.with_section do |section| %>
+            <% section.with_item(href: admin_root_path) do %>
+              Admin site
+            <% end %>
+          <% end %>
+        <% end %>
+
         <%= dropdown.with_section do |section| %>
           <% section.with_item(href: destroy_user_session_path, data: { turbo_method: 'delete' }) do %>
             Log out

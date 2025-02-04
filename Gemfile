@@ -57,6 +57,10 @@ gem 'view_component', '~> 3.21'
 
 gem 'heroicon', '~> 1.0'
 
+gem 'activeadmin', '~> 4.0.0.beta15'
+
+gem 'importmap-rails', '~> 2.1'
+
 group :development, :test do
   # See
   # https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

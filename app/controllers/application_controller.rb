@@ -9,8 +9,12 @@ class ApplicationController < ActionController::Base
   after_action :verify_pundit_authorization
   before_action :set_request_details
 
+  def active_admin_controller?
+    is_a?(ActiveAdmin::BaseController)
+  end
+
   def verify_pundit_authorization
-    return if devise_controller?
+    return if devise_controller? || active_admin_controller?
 
     if action_name == 'index'
       verify_policy_scoped
@@ -23,6 +27,11 @@ class ApplicationController < ActionController::Base
     policy_name = exception.policy.class.to_s.underscore
 
     flash[:error] = t "#{policy_name}.#{exception.query}", scope: 'pundit', default: :default
+    redirect_back_or_to(root_path)
+  end
+
+  def admin_not_authorized(exception)
+    flash[:error] = exception.message
     redirect_back_or_to(root_path)
   end
 

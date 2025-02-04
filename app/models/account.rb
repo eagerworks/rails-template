@@ -10,4 +10,8 @@ class Account < ApplicationRecord
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_fill: [32, 32], preprocessed: true
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name owner_id]
+  end
 end

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  ActiveAdmin.routes(self)
 
   mount Lookbook::Engine, at: '/lookbook' if Rails.env.development?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
     end
   end
   resources :account_users, path: 'members', only: [:edit, :update, :destroy]
-  resources :account_invitations, only: [:show, :update, :destroy]
+  resources :account_invitations, path: 'invitations', only: [:show, :update, :destroy]
 
   # Render dynamic PWA files from app/views/pwa/*
   # (remember to link manifest in application.html.erb)
