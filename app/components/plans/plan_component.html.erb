@@ -1,0 +1,54 @@
+<div class="rounded-3xl p-8 ring-1 xl:p-10 <%= background_classes %>">
+  <h3 class="text-lg/8 font-semibold <%= title_color %>"><%= name %></h3>
+  <p class="mt-4 text-sm/6 <%= text_color %>"><%= description %></p>
+  <p class="mt-6 flex items-baseline gap-x-1">
+    <!-- Price, update based on frequency toggle state -->
+    <span class="text-4xl font-semibold tracking-tight <%= title_color %>"><%= amount %></span>
+    <!-- Payment frequency, update based on frequency toggle state -->
+    <% unless custom? %>
+      <span class="text-sm/6 font-semibold <%= text_color %>">/<%= interval %></span>
+      <% if charge_per_unit? %>
+        <span class="text-sm/6 font-semibold <%= text_color %>">/<%= unit_label %></span>
+      <% end %>
+    <% end %>
+  </p>
+  <div class="mt-6">
+    <% if subscribed? && !current_plan? %>
+      <%= form_with model: Current.account.subscription, data: { turbo_frame: '_top' } do |form| %>
+        <%= form.hidden_field :plan_id, value: plan.id %>
+
+        <%= render Elements::Button.new(
+          dark: custom?, variant: custom? ? :secondary : :primary,
+          width: :full, size: :xl
+        ) do %>
+          Change plan
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render Elements::LinkButton.new(
+        href: current_plan? ? '#' : plan_url, dark: custom?, variant: custom? ? :secondary : :primary,
+        width: :full, size: :xl, data: { turbo_frame: '_top' }
+      ) do %>
+        <% if current_plan? %>
+          Current plan
+        <% elsif custom? %>
+          Contact sales
+        <% elsif trial? %>
+          Start free trial
+        <% else %>
+          Buy plan
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <ul role="list" class="mt-8 space-y-3 text-sm/6 <%= text_color %> xl:mt-10">
+    <% features.each do |feature| %>
+      <li class="flex gap-x-3">
+        <svg class="h-6 w-5 flex-none <%= check_color %>" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+          <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+        </svg>
+        <%= feature %>
+      </li>
+    <% end %>
+  </ul>
+</div>

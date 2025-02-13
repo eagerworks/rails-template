@@ -27,7 +27,6 @@ export default class extends Controller {
   }
 
   open() {
-    console.log("opening!");
     this.backdropTarget.classList.remove("hidden");
     this.panelTarget.classList.remove("hidden");
     setTimeout(() => {
@@ -35,7 +34,6 @@ export default class extends Controller {
       this.backdropTarget.classList.add(...this.backdropOpenClasses);
       this.panelTarget.classList.remove(...this.panelCloseClasses);
       this.panelTarget.classList.add(...this.panelOpenClasses);
-      console.log(this.panelTarget.classList);
     }, 0);
   }
 

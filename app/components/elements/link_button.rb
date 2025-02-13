@@ -7,5 +7,9 @@ module Elements
 
       @href = href
     end
+
+    def classes
+      class_list(super, 'text-center')
+    end
   end
 end

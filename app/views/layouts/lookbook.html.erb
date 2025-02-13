@@ -23,7 +23,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
-  <body class="bg-gray-50">
+  <body class="<%= params.dig(:lookbook, :display, :dark) ? 'bg-gray-900' : 'bg-gray-50' %>">
     <div class="p-4">
       <%= yield %>
     </div>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Form
-  class Input < Base
+  class Input < BaseComponent
     renders_one :description
     renders_one :label, lambda { |&block|
       Label.new(name: name, label: block.call, form: form)

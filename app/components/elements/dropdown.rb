@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Elements
-  class Dropdown < Base
+  class Dropdown < BaseComponent
     renders_many :sections, 'DropdownSection'
     renders_many :items, 'DropdownItem'
     renders_one :button
@@ -29,7 +29,7 @@ module Elements
       end
     end
 
-    class DropdownItem < Base
+    class DropdownItem < BaseComponent
       def initialize(href:, **attributes)
         super(**attributes)
 
@@ -49,7 +49,7 @@ module Elements
       ERB
     end
 
-    class DropdownSection < Base
+    class DropdownSection < BaseComponent
       renders_many :items, DropdownItem
 
       erb_template <<~ERB

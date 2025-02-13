@@ -22,6 +22,9 @@ application.register("nested-fields", NestedFieldsController);
 import SearchFormController from "./search_form_controller";
 application.register("search-form", SearchFormController);
 
+import StripeCheckoutController from "./stripe_checkout_controller";
+application.register("stripe-checkout", StripeCheckoutController);
+
 import TabsController from "./tabs_controller";
 application.register("tabs", TabsController);
 

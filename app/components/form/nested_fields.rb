@@ -1,5 +1,5 @@
 module Form
-  class NestedFields < Base
+  class NestedFields < BaseComponent
     attr_reader :form
 
     def initialize(form:)

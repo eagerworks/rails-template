@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Navigation
-  class Tabs < Base
+  class Tabs < BaseComponent
     renders_many :tabs, lambda { |url:, label:|
       Tab.new(url: url, turbo_frame: @turbo_frame).with_content(label)
     }
@@ -21,7 +21,7 @@ module Navigation
       end
     end
 
-    class Tab < Base
+    class Tab < BaseComponent
       attr_reader :turbo_frame, :url
 
       def initialize(url:, turbo_frame:)

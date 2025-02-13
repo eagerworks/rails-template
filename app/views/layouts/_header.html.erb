@@ -1,4 +1,4 @@
-<header class="z-50 flex h-16 border-b border-gray-900/10">
+<header class="z-50 flex h-16 border-b border-gray-900/10 bg-white">
   <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
     <div class="flex flex-1 items-center gap-x-6">
       <button type="button" class="-m-3 p-3 md:hidden">
@@ -14,7 +14,9 @@
           <% dropdown.with_button do %>
             <div class="flex items-center gap-4">
               <%= avatar_component(account: Current.account) %>
-              <%= Current.account.name %>
+              <span class="text-sm/6 font-semibold text-gray-900">
+                <%= Current.account.name %>
+              </span>
             </div>
           <% end %>
 
@@ -22,54 +24,65 @@
             <% dropdown.with_item(href: account_switch_path(account, return_to: request.path), data: { turbo_method: :patch }) do %>
               <div class="flex items-center gap-4">
                 <%= avatar_component(account: account) %>
-                <%= account.name %>
+                <span class="text-sm/6 font-semibold text-gray-900">
+                  <%= account.name %>
+                </span>
               </div>
             <% end %>
           <% end %>
         <% end %>
       <% end %>
     </div>
-    <nav class="md:gap-x-11 md:text-sm/6 md:font-semibold md:text-gray-700">
-      <%# Nav links go here %>
-      <%# <a href="#">Home</a> %>
+
+    <nav class="flex flex-1 justify-center md:gap-x-11 md:text-sm/6 md:font-semibold md:text-gray-700">
+      <% if Current.account_admin? && !Current.account.subscribed? %>
+        <%= link_to 'Pricing', plans_path %>
+      <% end %>
     </nav>
 
-    <% if user_signed_in? %>
-      <%= dropdown_component(align: :right) do |dropdown| %>
-        <% dropdown.with_button do %>
-          <%= avatar_component(user: current_user) %>
-        <% end %>
+    <div class="flex-1 flex justify-end">
+      <% if user_signed_in? %>
+        <%= dropdown_component(align: :right) do |dropdown| %>
+          <% dropdown.with_button do %>
+            <%= avatar_component(user: current_user) %>
+          <% end %>
 
-        <%= dropdown.with_section do |section| %>
-          <% section.with_item(href: edit_user_registration_path) do %>
-            Profile
-          <% end %>
-          <% section.with_item(href: edit_accounts_password_path) do %>
-            Change password
-          <% end %>
-          <% section.with_item(href: accounts_path) do %>
-            Accounts
-          <% end %>
-        <% end %>
-
-        <% if current_user.admin? %>
           <%= dropdown.with_section do |section| %>
-            <% section.with_item(href: admin_root_path) do %>
-              Admin site
+            <% section.with_item(href: edit_user_registration_path) do %>
+              Profile
+            <% end %>
+            <% section.with_item(href: edit_accounts_password_path) do %>
+              Change password
+            <% end %>
+            <% section.with_item(href: accounts_path) do %>
+              Accounts
+            <% end %>
+            <% if policy(Subscription).index? %>
+              <% section.with_item(href: subscriptions_path) do %>
+                Billing
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <% if current_user.admin? %>
+            <%= dropdown.with_section do |section| %>
+              <% section.with_item(href: admin_root_path) do %>
+                Admin site
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <%= dropdown.with_section do |section| %>
+            <% section.with_item(href: destroy_user_session_path, data: { turbo_method: 'delete' }) do %>
+              Log out
             <% end %>
           <% end %>
         <% end %>
-
-        <%= dropdown.with_section do |section| %>
-          <% section.with_item(href: destroy_user_session_path, data: { turbo_method: 'delete' }) do %>
-            Log out
-          <% end %>
+      <% else %>
+        <%= link_to new_user_session_path, class: 'text-sm/6 font-semibold text-gray-900' do %>
+          Log in <span aria-hidden="true">&rarr;</span>
         <% end %>
       <% end %>
-    <% else %>
-      <%= link_to new_user_session_path, class: 'text-sm/6 font-semibold text-gray-900' do %>
-        Log in <span aria-hidden="true">&rarr;</span>
-      <% end %>
-    <% end %>
+    </div>
   </div>
 </header>

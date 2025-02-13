@@ -1,0 +1,48 @@
+  <h2 class="text-base/7 font-semibold text-gray-900">Current plan</h2>
+  <div class="flex justify-between mt-3">
+    <div class="flex flex-col">
+      <% if canceled? %>
+        <div class="mb-2">
+          <%= render Elements::Badge.new(color: :red).with_content('Canceled') %>
+        </div>
+      <% end %>
+      <h3 class="font-semibold text-gray-900"><%= plan_name %></h2>
+      <p class="text-sm/6 text-gray-500">
+        <span><%= amount %></span>
+
+        <span>/<%= interval %></span>
+        <% if charge_per_unit? %>
+          <span>/<%= unit_label %></span>
+        <% end %>
+      </p>
+      <% if on_grace_period? %>
+        <span class="text-sm/6 text-gray-500">
+          Your plan is canceled, but is still available until
+          <%= subscription.ends_at.strftime('%b %d, %Y') %>.
+        </span>
+      <% elsif trial? %>
+        <span class="text-sm/6 text-gray-500">
+          After your trial ends on
+          <%= subscription.trial_ends_at.strftime('%b %d, %Y') %>,
+          this plan will continue automatically.
+        </span>
+      <% end %>
+    </div>
+    <div class="flex flex-col space-y-2">
+      <% if active? %>
+        <%= render Elements::LinkButton.new(href: plans_path) do %>
+          Change plan
+        <% end %>
+        <%= render Elements::LinkButton.new(href: new_payment_method_path, variant: :secondary) do %>
+          Update payment method
+        <% end %>
+        <%= render Elements::LinkButton.new(href: cancel_path, variant: :secondary) do %>
+          Cancel plan
+        <% end %>
+      <% elsif on_grace_period? %>
+        <%= render Elements::LinkButton.new(href: renewal_path) do %>
+          Renew
+        <% end %>
+      <% end %>
+    </div>
+  </div>

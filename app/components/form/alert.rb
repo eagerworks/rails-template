@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Form
-  class Alert < Base
+  class Alert < BaseComponent
     renders_one :title
     use_helpers :heroicon
 

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  ActiveAdmin.routes(self)
+
+  authenticated :user, lambda(&:admin?) do
+    ActiveAdmin.routes(self)
+  end
 
   mount Lookbook::Engine, at: '/lookbook' if Rails.env.development?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -11,11 +14,13 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  draw :billing
+
   namespace :accounts do
     resource :password, only: [:edit, :update]
   end
 
-  resources :accounts do
+  resources :accounts, only: [:index, :new, :create, :show] do
     patch :switch
 
     resources :account_invitations,

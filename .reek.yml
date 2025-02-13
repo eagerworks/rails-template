@@ -1,3 +1,60 @@
 detectors:
   IrresponsibleModule:
     enabled: false
+  ControlParameter:
+    enabled: false
+  InstanceVariableAssumption:
+    enabled: false
+  TooManyStatements:
+    max_statements: 8
+  MissingSafeMethod:
+    exclude:
+      - AccountInvitationsController
+      - ApplicationController
+  UtilityFunction:
+    exclude:
+      - ApplicationController#current_account
+      - ApplicationService#success
+  DuplicateMethodCall:
+    enabled: false
+
+directories:
+  "app/components":
+    BooleanParameter:
+      enabled: false
+    LongParameterList:
+      enabled: false
+    TooManyInstanceVariables:
+      enabled: false
+    RepeatedConditional:
+      enabled: false
+    UtilityFunction:
+      enabled: false
+  "app/helpers":
+    UtilityFunction:
+      enabled: false
+    LongParameterList:
+      enabled: false
+  "app/policies":
+    UtilityFunction:
+      enabled: false
+  "app/services":
+    FeatureEnvy:
+      enabled: false
+    BooleanParameter:
+      enabled: false
+  "test/components/previews":
+    FeatureEnvy:
+      enabled: false
+    BooleanParameter:
+      enabled: false
+    DataClump:
+      enabled: false
+    LongParameterList:
+      enabled: false
+  "test/mailers/previews":
+    UtilityFunction:
+      enabled: false
+
+exclude_paths:
+  - db/migrate

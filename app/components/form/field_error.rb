@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Form
-  class FieldError < Base
+  class FieldError < BaseComponent
     erb_template <<-ERB
     <div class="text-red-500 text-sm mt-2"><%= @error %></div>
     ERB

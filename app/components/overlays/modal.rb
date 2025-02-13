@@ -1,5 +1,5 @@
 module Overlays
-  class Modal < Base
+  class Modal < BaseComponent
     use_helpers :turbo_frame_tag
     renders_one :panel
     attr_reader :turbo_frame

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module Layout
-  class Sidebar < Base
+  class Sidebar < BaseComponent
     renders_many :items, 'SidebarItem'
 
-    class SidebarItem < Base
+    class SidebarItem < BaseComponent
       def initialize(href:, controllers: [])
         super
 

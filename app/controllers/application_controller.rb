@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
   after_action :verify_pundit_authorization
   before_action :set_request_details
 
+  private
+
+  def require_current_account_admin!
+    authenticate_user!
+
+    redirect_to root_path, alert: 'You must be an admin to do that.' unless Current.account_admin?
+  end
+
   def active_admin_controller?
     is_a?(ActiveAdmin::BaseController)
   end

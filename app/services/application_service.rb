@@ -12,8 +12,8 @@ class ApplicationService
   def self.call(...)
     service = new(propagate: false)
     service.call(...)
-  rescue StandardError => e
-    service.failure(e)
+  rescue StandardError => error
+    service.failure(error)
   end
 
   def self.call!(...)

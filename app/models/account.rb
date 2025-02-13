@@ -2,6 +2,8 @@ class Account < ApplicationRecord
   has_many :account_users, dependent: :destroy
   has_many :users, through: :account_users
   has_many :account_invitations, dependent: :destroy
+  has_one :subscription, dependent: :destroy
+  has_one :plan, through: :subscription
 
   belongs_to :owner, class_name: 'User'
 
@@ -13,5 +15,10 @@ class Account < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[name owner_id]
+  end
+
+  def subscribed?(name: nil)
+    subscription.present? && (subscription.active? || subscription.on_grace_period?) &&
+      (name.blank? || subscription.plan_name == name)
   end
 end

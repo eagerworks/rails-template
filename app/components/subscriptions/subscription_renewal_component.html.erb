@@ -1,0 +1,25 @@
+<%= render Layout::Card.new do |card| %>
+  <% card.with_header_content('Resume your plan') %>
+
+  <h3 class="font-semibold text-gray-900"><%= plan_name %></h2>
+  <p class="text-sm/6 text-gray-500">
+    <span><%= amount %></span>
+
+    <span>/<%= interval %></span>
+    <% if charge_per_unit? %>
+      <span>/<%= unit_label %></span>
+    <% end %>
+  </p>
+
+  <p class="text-sm/6 text-gray-500 mt-2">
+    This plan will no longer be canceled and will automatically renew.
+  </p>
+
+  <% card.with_footer do %>
+    <%= render Elements::LinkButton.new(href: subscriptions_path, variant: :secondary).with_content('Back to Billing') %>
+    <%= button_component_to(
+      'Renew plan',
+      renewal_path,
+    ) %>
+  <% end %>
+<% end %>

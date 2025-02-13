@@ -93,3 +93,6 @@ Style/SymbolArray:
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - spec/**/*
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false

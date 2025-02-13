@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Layout
-  class TableHeader < Base
+  class TableHeader < BaseComponent
     def initialize(align: :center)
       super()
 

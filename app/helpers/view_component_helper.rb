@@ -5,7 +5,11 @@ module ViewComponentHelper
     component_class = relative_path.to_s.gsub('.rb', '').camelize.constantize
     component_name = File.basename(file, '.rb')
 
-    define_method("#{component_name}_component") do |*args, **kwargs, &block|
+    unless /_component\Z/ =~ component_name
+      component_name = "#{component_name}_component"
+    end
+
+    define_method(component_name) do |*args, **kwargs, &block|
       component_class.new(*args, **kwargs).render_in(self, &block)
     end
   end
@@ -14,8 +18,8 @@ module ViewComponentHelper
     form_with(**options.merge(builder: FormBuilder), &block)
   end
 
-  def button_component_to(content, path, **kwargs)
-    form_with(url: path) do
+  def button_component_to(content, path, method: nil, **kwargs)
+    form_with(url: path, method: method) do
       Elements::Button.new(**kwargs).with_content(content).render_in(self)
     end
   end

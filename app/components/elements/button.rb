@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 module Elements
-  class Button < Base
+  class Button < BaseComponent
     attr_reader :variant, :rounded, :size, :color, :width
 
     def initialize(
-      variant: :primary, rounded: false, size: :md, color: :indigo, width: :content, **attributes
+      variant: :primary, rounded: false, size: :md, color: :indigo, width: :content,
+      dark: false, **attributes
     )
       super(**attributes)
 
+      @dark = dark
       @variant = variant.to_sym
       @rounded = rounded
       @size = size.to_sym
@@ -21,13 +23,23 @@ module Elements
     def classes
       class_list(
         'font-semibold shadow-sm inline-block',
-        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
         size_classes,
-        color_classes,
         radius_classes,
-        'focus-visible:outline-indigo-600': color == :indigo,
-        'focus-visible:outline-red-600': color == :red,
-        'w-full': width == :full
+        focus_classes,
+        primary_color_classes => variant == :primary,
+        secondary_color_classes => variant == :secondary,
+        soft_color_classes => variant == :soft,
+        'w-full text-center': width == :full
+      )
+    end
+
+    def focus_classes
+      class_list(
+        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+        'focus-visible:outline-indigo-600': color == :indigo && !@dark,
+        'focus-visible:outline-red-600': color == :red && !@dark,
+        'focus-visible:outline-indigo-500': color == :indigo && @dark,
+        'focus-visible:outline-red-500': color == :red && @dark
       )
     end
 
@@ -59,22 +71,27 @@ module Elements
     end
     # rubocop:enable Metrics/AbcSize
 
-    def color_classes
-      if variant == :secondary
-        return 'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
-      end
+    def secondary_color_classes
+      class_list(
+        'bg-white/10 text-white hover:bg-white/20': @dark,
+        'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50': !@dark
+      )
+    end
 
-      if variant == :soft
-        return class_list(
-          'bg-indigo-50 text-indigo-600 hover:bg-indigo-100': color == :indigo,
-          'bg-red-50 text-red-600 hover:bg-red-100': color == :red
-        )
-      end
+    def soft_color_classes
+      class_list(
+        'bg-indigo-50 text-indigo-600 hover:bg-indigo-100': color == :indigo,
+        'bg-red-50 text-red-600 hover:bg-red-100': color == :red
+      )
+    end
 
+    def primary_color_classes
       class_list(
         'text-white',
-        'bg-indigo-600 hover:bg-indigo-500': color == :indigo,
-        'bg-red-600 hover:bg-red-500': color == :red
+        'bg-indigo-600 hover:bg-indigo-500': color == :indigo && !@dark,
+        'bg-red-600 hover:bg-red-500': color == :red && !@dark,
+        'bg-indigo-500 hover:bg-indigo-400': color == :indigo && @dark,
+        'bg-red-500 hover:bg-red-400': color == :red && @dark
       )
     end
   end

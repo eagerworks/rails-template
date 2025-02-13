@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_04_140959) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_13_124621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -86,6 +86,37 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_140959) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.integer "amount"
+    t.integer "interval", default: 0
+    t.jsonb "details"
+    t.integer "trial_period_days", default: 0
+    t.string "currency", default: "usd"
+    t.string "description"
+    t.string "unit_label"
+    t.boolean "charge_per_unit", default: false
+    t.string "stripe_id"
+    t.string "contact_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "private", default: true
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.bigint "account_id", null: false
+    t.integer "quantity"
+    t.datetime "trial_ends_at"
+    t.datetime "ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "stripe_id", null: false
+    t.integer "status", default: 0
+    t.index ["account_id"], name: "index_subscriptions_on_account_id"
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -100,6 +131,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_140959) do
     t.datetime "updated_at", null: false
     t.string "full_name"
     t.boolean "admin", default: false
+    t.string "stripe_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -112,4 +144,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_140959) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "subscriptions", "accounts"
+  add_foreign_key "subscriptions", "plans"
 end

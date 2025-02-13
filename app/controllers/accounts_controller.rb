@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   layout 'settings'
 
+  before_action :authenticate_user!
   before_action :load_account, only: [:show, :switch]
 
   def index

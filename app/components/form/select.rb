@@ -36,7 +36,7 @@ module Form
       end
     end
 
-    class Option < Base
+    class Option < BaseComponent
       attr_reader :value, :label, :selected
 
       def initialize(value:, label:, selected: false)

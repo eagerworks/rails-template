@@ -29,6 +29,14 @@
             Accounts
           </div>
         <% end %>
+        <% if policy(Subscription).index? %>
+          <% sidebar.with_item(href: subscriptions_path) do %>
+            <div class="flex items-center gap-3">
+              <%= heroicon 'credit-card', variant: :outline, options: { class: 'size-5' } %>
+              Billing
+            </div>
+          <% end %>
+        <% end %>
       <% end %>
 
       <main class="px-4 py-16 sm:px-6 lg:flex-auto lg:px-0 lg:py-20">

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Elements
-  class Badge < Base
+  class Badge < BaseComponent
     def initialize(color: :indigo)
       super()
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Form
-  class Label < Base
+  class Label < BaseComponent
     attr_reader :form, :name, :label
 
     def initialize(name:, label: nil, form: nil, **attributes)

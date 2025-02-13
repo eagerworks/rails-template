@@ -1,0 +1,39 @@
+<%= render Layout::Card.new do |card| %>
+  <% card.with_header_content('Cancel your plan') %>
+
+  <h3 class="font-semibold text-gray-900"><%= plan_name %></h2>
+  <p class="text-sm/6 text-gray-500">
+    <span><%= amount %></span>
+
+    <span>/<%= interval %></span>
+    <% if charge_per_unit? %>
+      <span>/<%= unit_label %></span>
+    <% end %>
+  </p>
+
+  <p class="text-sm/6 text-gray-500 mt-2">
+    <b class="font-semibold">
+      You can cancel anytime, but you'll lose access to
+      <%= Rails.configuration.application['name'] %>.
+    </b>
+
+    Need to talk to someone?
+    <%# TODO: add contact link %>
+    <%= render Elements::Link.new(href: '#').with_content('Contact us') %>
+    -- we'd love to help.
+
+    Your plan will be canceled, but is still available until the end of your billing period.
+
+    If you change your mind, you can resume your subscription.
+  </p>
+
+  <% card.with_footer do %>
+    <%= render Elements::LinkButton.new(href: subscriptions_path, variant: :secondary).with_content('Back to Billing') %>
+    <%= button_component_to(
+      'Cancel plan',
+      cancel_path,
+      color: :red,
+      method: :delete
+    ) %>
+  <% end %>
+<% end %>

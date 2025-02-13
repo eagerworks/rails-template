@@ -27,6 +27,18 @@ module Elements
     # @param size select { choices: [xs, sm, md, lg, xl] }
     # @param variant select { choices: [primary, secondary, soft] }
     # @param rounded
+    # @param dark
+    # @display dark true
+    def dark(text: 'Button text', size: :md, variant: :primary, rounded: false, dark: true)
+      render(Elements::Button.new(
+        size: size, variant: variant, rounded: rounded, dark: dark
+      ).with_content(text))
+    end
+
+    # @param text
+    # @param size select { choices: [xs, sm, md, lg, xl] }
+    # @param variant select { choices: [primary, secondary, soft] }
+    # @param rounded
     def soft(text: 'Button text', size: :md, variant: :soft, rounded: false)
       render(Elements::Button.new(
         size: size, variant: variant, rounded: rounded

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Layout
-  class TableCell < Base
+  class TableCell < BaseComponent
     def initialize(align: :center, truncate: false)
       super()
 
