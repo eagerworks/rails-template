@@ -1,8 +1,8 @@
-<div class="col-span-full flex items-center gap-x-8 mt-4" data-controller="image-input">
-  <%= image_tag image_url, class: class_list('size-24 flex-none rounded-lg bg-gray-800 object-cover', 'hidden': !attached?), data: { image_input_target: 'image' } %>
+<div class="col-span-full flex items-center gap-x-8 mt-4" x-data="imageInput('<%= image_url %>', <%= attached? %>)">
+  <img :src="image" x-show="showImage" class="<%= class_list('size-24 flex-none rounded-lg bg-gray-800 object-cover') %>">
 
   <% unless attached? %>
-    <div class="size-24 flex-none rounded-lg bg-white border flex justify-center items-center" data-image-input-target="placeholder">
+    <div x-show="!showImage" class="size-24 flex-none rounded-lg bg-white border flex justify-center items-center">
       <%= heroicon 'photo', options: { class: 'size-10 text-gray-400' } %>
     </div>
   <% end %>
@@ -10,7 +10,7 @@
     <%= render Elements::Button.new(variant: :secondary, type: :button) do %>
       <%= render Form::Label.new(form: form, name: name, label: 'Change avatar') %>
     <% end %>
-    <%= form.file_field name, class: 'hidden', data: { action: 'change->image-input#changeImage' } %>
+    <%= form.file_field name, class: 'hidden', '@change': 'changeImage' %>
     <p class="mt-2 text-xs/5 text-gray-400">JPG, GIF or PNG. 1MB max.</p>
   </div>
 </div>

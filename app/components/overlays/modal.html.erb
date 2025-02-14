@@ -1,14 +1,14 @@
-<div data-controller="modal" data-action="turbo:submit-end->modal#handleFormSubmit">
+<div x-data="modal" @turbo:submit-end="handleFormSubmit">
   <%= content %>
 
-  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 bg-gray-500/75 transition-opacity hidden" aria-hidden="true" data-modal-target="backdrop"></div>
+  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" x-show="isOpen">
+    <div class="fixed inset-0 bg-gray-500/75" aria-hidden="true" x-ref="backdrop"></div>
 
-    <div class="fixed inset-0 z-10 w-screen overflow-y-auto transform transition-all hidden" data-modal-target="panel">
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto" x-ref="panel">
       <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-        <div class="relative sm:my-8 sm:w-full sm:max-w-sm">
+        <div class="relative sm:w-full sm:max-w-sm" @click.outside="close">
           <% if turbo? %>
-            <%= turbo_frame_tag turbo_frame, data: { action: 'turbo:frame-load->modal#open' } %>
+            <%= turbo_frame_tag turbo_frame, '@turbo:frame-load': 'open' %>
           <% else %>
             <%= panel %>
           <% end %>

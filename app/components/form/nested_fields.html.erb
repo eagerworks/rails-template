@@ -1,4 +1,0 @@
-<div class="<%= destroyed? ? 'hidden' : '' %>" data-controller="nested-fields" data-nested-fields-persisted-value="<%= persisted? %>">
-  <%= hidden_field(object_name, '_destroy', data: { nested_fields_target: 'destroyField' }, value: destroyed? ? '1' : '0') %>
-  <%= content %>
-</div>

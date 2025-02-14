@@ -19,10 +19,8 @@
           resend_account_account_invitation_path(account_invitation.account, account_invitation),
           variant: :secondary
         ) %>
-        <div data-controller="copy-button" data-copy-button-text-value="<%= account_invitation_url(account_invitation) %>">
-          <%= button_component(variant: :secondary, type: :button, data: { action: 'copy-button#copy' }) do %>
-            Copy link
-          <% end %>
+        <div x-data="copyButton('Copy link', '<%= account_invitation_url(account_invitation) %>')">
+          <%= button_component(variant: :secondary, type: :button, 'x-text': 'buttonText', '@click': 'copy') %>
         </div>
         <%= link_button_component(href: edit_account_account_invitation_path(account_invitation.account, account_invitation)) do %>
           Edit

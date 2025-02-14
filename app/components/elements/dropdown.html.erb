@@ -1,15 +1,14 @@
 <div
   class="relative inline-block text-left"
-  data-controller="dropdown"
-  data-action="click@window->dropdown#removeFocus"
+  x-data="dropdown"
+  @click.outside="close"
 >
   <div>
     <% if button? %>
       <div
+        @click="toggle"
+        :aria-expanded="open"
         aria-haspopup="true"
-        data-dropdown-target="button"
-        data-action="click->dropdown#toggle"
-        aria-expanded="false"
         aria-controls="dropdown"
       >
         <%= button %>
@@ -19,9 +18,9 @@
         type="button"
         class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:ring-2 <%= focus_classes %>"
         id="menu-button"
+        @click="toggle"
+        @blur="close"
         aria-haspopup="true"
-        data-dropdown-target="button"
-        data-action="dropdown#toggle"
         aria-expanded="false"
         aria-controls="dropdown"
       >
@@ -34,8 +33,9 @@
   </div>
 
   <div
-    data-dropdown-target="dropdown"
-    class="<%= align_classes %> absolute z-10 mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden transition duration-100 ease-in opacity-0 scale-95 divide-y divide-gray-100"
+    x-show="open"
+    x-transition
+    class="<%= align_classes %> absolute z-10 mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100"
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="menu-button"

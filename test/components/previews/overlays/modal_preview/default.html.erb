@@ -1,7 +1,7 @@
 <%= modal_component do |modal| %>
   <%# You can add the button that opens the modal inside the content %>
 
-  <%= button_component(data: { action: 'modal#open' }) do %>
+  <%= button_component('@click': 'open') do %>
     Open Modal
   <% end %>
 
@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="mt-5 sm:mt-6">
-        <%= button_component(data: { action: 'modal#close' }) do %>
+        <%= button_component('@click': 'close') do %>
           Go back to dashboard
         <% end %>
       </div>
