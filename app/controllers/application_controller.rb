@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  include Authorization
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -19,28 +20,6 @@ class ApplicationController < ActionController::Base
 
   def active_admin_controller?
     is_a?(ActiveAdmin::BaseController)
-  end
-
-  def verify_pundit_authorization
-    return if devise_controller? || active_admin_controller?
-
-    if action_name == 'index'
-      verify_policy_scoped
-    else
-      verify_authorized
-    end
-  end
-
-  def user_not_authorized(exception)
-    policy_name = exception.policy.class.to_s.underscore
-
-    flash[:error] = t "#{policy_name}.#{exception.query}", scope: 'pundit', default: :default
-    redirect_back_or_to(root_path)
-  end
-
-  def admin_not_authorized(exception)
-    flash[:error] = exception.message
-    redirect_back_or_to(root_path)
   end
 
   def set_request_details

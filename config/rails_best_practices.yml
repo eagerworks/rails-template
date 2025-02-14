@@ -23,12 +23,7 @@ ProtectMassAssignmentCheck: {}
 RemoveEmptyHelpersCheck: {}
 #RemoveTabCheck: { }
 RemoveTrailingWhitespaceCheck: {}
-RemoveUnusedMethodsInControllersCheck:
-  except_methods:
-    - ApplicationController#admin_not_authorized
-    - Users::RegistrationsController#build_resource
-    - Users::RegistrationsController#sign_up_params
-    - Users::RegistrationsController#sign_up
+# RemoveUnusedMethodsInControllersCheck: {}
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
 RemoveUnusedMethodsInModelsCheck:
   except_methods:

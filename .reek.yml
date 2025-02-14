@@ -17,6 +17,9 @@ detectors:
       - ApplicationService#success
   DuplicateMethodCall:
     enabled: false
+  ManualDispatch:
+    exclude:
+      - Authorization#build_resource
 
 directories:
   "app/components":
