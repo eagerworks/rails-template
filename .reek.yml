@@ -20,6 +20,9 @@ detectors:
   ManualDispatch:
     exclude:
       - Authorization#build_resource
+  UncommunicativeMethodName:
+    exclude:
+      - Users::OmniauthCallbacksController#google_oauth2
 
 directories:
   "app/components":

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable,
-         :confirmable
+         :confirmable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook]
 
   validates :full_name, presence: true
 
@@ -24,5 +24,28 @@ class User < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[email full_name admin]
+  end
+
+  def self.from_omniauth(auth)
+    user = find_from_omniauth(auth)
+    return user if user.present?
+
+    create(
+      provider: auth.provider,
+      uid: auth.uid,
+      email: auth.info.email,
+      password: Devise.friendly_token[0, 20],
+      full_name: auth.info.name,
+      confirmed_at: Time.zone.now
+    )
+  end
+
+  def self.find_from_omniauth(auth)
+    user = find_by(provider: auth.provider, uid: auth.uid)
+    return user if user.present?
+
+    user = find_by(email: auth.info.email)
+    user.update(provider: auth.provider, uid: auth.uid)
+    user
   end
 end
