@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include Authorization
 
+  impersonates :user
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting,

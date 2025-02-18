@@ -1,0 +1,8 @@
+<div class="bg-yellow-100 w-full px-2 py-1">
+  <span class="text-sm/6 font-medium text-yellow-700">
+    You are impersonating <%= current_user.email %>.
+    <%= render Elements::Link.new(href: impersonations_path, data: { turbo_method: 'delete' }) do %>
+      Stop impersonating.
+    <% end %>
+  </span>
+</div>

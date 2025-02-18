@@ -1,6 +1,17 @@
 ActiveAdmin.register User do
   permit_params :email, :password, :password_confirmation, :full_name, :admin
 
+  action_item :impersonate, only: :show do
+    link_to 'Impersonate', impersonate_admin_user_path(resource), method: :post,
+                                                                  class: 'action-item-button'
+  end
+
+  member_action :impersonate, method: :post do
+    user = User.find(params[:id])
+    impersonate_user(user)
+    redirect_to root_path
+  end
+
   index do
     selectable_column
     id_column

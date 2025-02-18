@@ -36,6 +36,9 @@ Rails.application.routes.draw do
   end
   resources :account_users, path: 'members', only: [:edit, :update, :destroy]
   resources :account_invitations, path: 'invitations', only: [:show, :update, :destroy]
+  resources :impersonations, only: [] do
+    delete '/', action: :destroy, on: :collection
+  end
 
   # Render dynamic PWA files from app/views/pwa/*
   # (remember to link manifest in application.html.erb)
