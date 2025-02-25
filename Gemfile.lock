@@ -83,6 +83,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    android_key_attestation (0.3.0)
     arbre (2.2.0)
       activesupport (>= 7.0)
     ast (2.4.2)
@@ -93,6 +94,7 @@ GEM
     bcrypt_pbkdf (1.1.1-x86_64-darwin)
     benchmark (0.4.0)
     bigdecimal (3.1.9)
+    bindata (2.5.0)
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
@@ -108,12 +110,16 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    cbor (0.5.9.8)
     childprocess (5.1.0)
       logger (~> 1.5)
     code_analyzer (0.5.5)
       sexp_processor
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
+    cose (1.3.1)
+      cbor (~> 0.5.9)
+      openssl-signature_algorithm (~> 1.0)
     crass (1.0.6)
     css_parser (1.21.0)
       addressable
@@ -342,6 +348,9 @@ GEM
     omniauth-rails_csrf_protection (1.0.2)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    openssl (3.3.0)
+    openssl-signature_algorithm (1.3.0)
+      openssl (> 2.0)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
     pagy (9.3.3)
@@ -460,6 +469,8 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (2.4.1)
+    safety_net_attestation (0.4.0)
+      jwt (~> 2.0)
     securerandom (0.4.1)
     selenium-webdriver (4.27.0)
       base64 (~> 0.2)
@@ -502,6 +513,10 @@ GEM
     thruster (0.1.10-x86_64-darwin)
     thruster (0.1.10-x86_64-linux)
     timeout (0.4.3)
+    tpm-key_attestation (0.14.0)
+      bindata (~> 2.4)
+      openssl (> 2.0)
+      openssl-signature_algorithm (~> 1.0)
     turbo-rails (2.0.11)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
@@ -524,6 +539,14 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webauthn (3.4.0)
+      android_key_attestation (~> 0.3.0)
+      bindata (~> 2.4)
+      cbor (~> 0.5.9)
+      cose (~> 1.1)
+      openssl (>= 2.2)
+      safety_net_attestation (~> 0.4.0)
+      tpm-key_attestation (~> 0.14.0)
     websocket (1.2.11)
     websocket-driver (0.7.7)
       base64
@@ -589,6 +612,7 @@ DEPENDENCIES
   tzinfo-data
   view_component (~> 3.21)
   web-console
+  webauthn (~> 3.4)
 
 BUNDLED WITH
    2.5.7

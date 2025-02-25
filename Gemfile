@@ -97,3 +97,5 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 end
+
+gem "webauthn", "~> 3.4"

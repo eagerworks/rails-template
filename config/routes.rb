@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     delete '/', action: :destroy, on: :collection
   end
 
+  resources :credentials
+
   # Render dynamic PWA files from app/views/pwa/*
   # (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest

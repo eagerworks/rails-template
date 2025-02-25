@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :account_users, dependent: :destroy
   has_many :accounts, through: :account_users
   has_many :owned_accounts, class_name: 'Account', foreign_key: :owner_id, dependent: :destroy
+  has_many :credentials, dependent: :destroy
 
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_fill: [32, 32], preprocessed: true
