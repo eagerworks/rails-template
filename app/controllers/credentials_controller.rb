@@ -34,6 +34,18 @@ class CredentialsController < ApplicationController
     redirect_to edit_accounts_password_url, notice: 'Passkey was successfully created.'
   end
 
+  def destroy
+    @credential.destroy
+
+    render turbo_stream: turbo_stream.remove(@credential)
+  end
+
+  def update
+    @credential.update(credential_params)
+
+    render turbo_stream: turbo_stream.replace(@credential)
+  end
+
   private
 
   def credential_params
