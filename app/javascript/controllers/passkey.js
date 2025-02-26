@@ -1,33 +1,50 @@
+import {
+  create,
+  get,
+  parseCreationOptionsFromJSON,
+  parseRequestOptionsFromJSON,
+} from "@github/webauthn-json/browser-ponyfill";
+
 export default (options = {}) => ({
   error: false,
   credential: null,
 
-  create() {
+  createCredential() {
     if (!window.PublicKeyCredential) {
       this.error = true;
       return;
     }
 
-    console.log(options);
-    options.challenge = new Uint8Array(options.challenge);
-    options.user.id = new Uint8Array(options.user.id);
+    const parsedOptions = parseCreationOptionsFromJSON({ publicKey: options });
 
-    // options.pubKeyCredParams.forEach((param) => {
-    //   param.type = "publicKey";
-    // });
-
-    navigator.credentials
-      .create({ publicKey: options })
+    create(parsedOptions)
       .then((credential) => {
-        console.log(credential);
         this.credential = JSON.stringify(credential);
-        console.log(this.$refs);
+      })
+      .catch((error) => {
+        console.error(error);
+        this.error = true;
+      });
+  },
+
+  checkCredential() {
+    if (!window.PublicKeyCredential) {
+      this.error = true;
+      return;
+    }
+
+    const parsedOptions = parseRequestOptionsFromJSON({ publicKey: options });
+
+    get(parsedOptions)
+      .then((credential) => {
+        this.credential = JSON.stringify(credential);
         this.$nextTick(() => {
           this.$refs.form.submit();
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
+        this.error = true;
       });
   },
 });

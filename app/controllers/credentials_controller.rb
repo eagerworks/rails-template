@@ -25,10 +25,18 @@ class CredentialsController < ApplicationController
     )
     webauthn_credential.verify(session[:creation_challenge])
 
-    user.credentials.create!(
-      webauthn_id: webauthn_credential.id,
-      public_key: webauthn_credential.public_key,
-      sign_count: webauthn_credential.sign_count
-    )
+    @credential.webauthn_id = webauthn_credential.id
+    @credential.public_key = webauthn_credential.public_key
+    @credential.sign_count = webauthn_credential.sign_count
+
+    @credential.save!
+
+    redirect_to edit_accounts_password_url, notice: 'Passkey was successfully created.'
+  end
+
+  private
+
+  def credential_params
+    params.require(:credential).permit(:name).merge(user: current_user)
   end
 end

@@ -8,7 +8,7 @@ module Accounts
     def edit; end
 
     def update
-      if @user.update_with_password(password_params)
+      if @user.password_set && @user.update_with_password(password_params) || @user.update(password_params)
         bypass_sign_in @user
         flash.now[:notice] = 'Your password was changed successfully.'
         render turbo_stream: turbo_stream.replace('flash_messages',
@@ -22,6 +22,7 @@ module Accounts
 
     def password_params
       params.require(:user).permit(:current_password, :password, :password_confirmation)
+        .merge(password_set: true)
     end
 
     def load_user

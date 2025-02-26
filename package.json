@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@activeadmin/activeadmin": "4.0.0-beta15",
+    "@github/webauthn-json": "^2.1.1",
     "@hotwired/turbo-rails": "^8.0.12",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",

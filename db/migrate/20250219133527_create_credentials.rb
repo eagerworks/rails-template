@@ -6,6 +6,7 @@ class CreateCredentials < ActiveRecord::Migration[8.0]
       t.string :webauthn_id, null: false, index: { unique: true }
       t.string :public_key, null: false
       t.integer :sign_count, default: 0
+      t.datetime :last_used_at
 
       t.timestamps
     end

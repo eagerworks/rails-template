@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
   }
 
   authenticated :user, lambda(&:admin?) do
@@ -41,6 +42,8 @@ Rails.application.routes.draw do
   end
 
   resources :credentials
+
+  resources :two_factor, only: [:new, :create]
 
   # Render dynamic PWA files from app/views/pwa/*
   # (remember to link manifest in application.html.erb)

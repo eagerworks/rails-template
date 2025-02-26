@@ -23,6 +23,10 @@ class User < ApplicationRecord
     accounts.count > 1
   end
 
+  def two_factor_enabled?
+    credentials.any?
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[email full_name admin]
   end
@@ -37,7 +41,8 @@ class User < ApplicationRecord
       email: auth.info.email,
       password: Devise.friendly_token[0, 20],
       full_name: auth.info.name,
-      confirmed_at: Time.zone.now
+      confirmed_at: Time.zone.now,
+      password_set: false
     )
   end
 
@@ -46,7 +51,7 @@ class User < ApplicationRecord
     return user if user.present?
 
     user = find_by(email: auth.info.email)
-    user.update(provider: auth.provider, uid: auth.uid)
+    user.update(provider: auth.provider, uid: auth.uid) if user.present?
     user
   end
 end

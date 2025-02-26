@@ -1,0 +1,33 @@
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+    <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Two-factor authentication</h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[350px]">
+    <%= card_component() do %>
+      <div x-data="passkey(<%= @options.to_json %>)">
+        <div class="space-y-5">
+          <%= heroicon('key', variant: :outline, options: { class: 'size-10 mx-auto text-indigo-600' }) %>
+          <div class="space-y-5">
+            <p class="text-base/6 text-gray-700 text-center">
+              When you are ready, authenticate using the button below.
+            </p>
+            <div x-show="error">
+              <%= alert_component(type: :error) do %>
+                Authentication failed
+              <% end %>
+            </div>
+            <%= button_component(width: :full, '@click': 'checkCredential') do %>
+              Use passkey
+            <% end %>
+          </div>
+        </div>
+
+        <%= form_with url: two_factor_index_path, html: { 'x-ref': 'form' } do |f| %>
+          <%= hidden_field_tag :public_key_credential, nil, ':value': 'credential' %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

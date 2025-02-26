@@ -11,8 +11,10 @@
         <% end %>
       <% end %>
       <%= f.text_field_component :password_confirmation, type: :password, autocomplete: 'new-password' %>
-      <%= f.text_field_component :current_password, type: :password, autocomplete: 'current-password' do |field| %>
-        <% field.with_description_content('We need your current password to confirm your changes') %>
+      <% if @user.password_set? %>
+        <%= f.text_field_component :current_password, type: :password, autocomplete: 'current-password' do |field| %>
+          <% field.with_description_content('We need your current password to confirm your changes') %>
+        <% end %>
       <% end %>
       <div class="mt-4">
         <%= button_component do %>

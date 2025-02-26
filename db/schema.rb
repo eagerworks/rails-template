@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_19_141253) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_26_172510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -92,6 +92,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_19_141253) do
     t.string "webauthn_id", null: false
     t.string "public_key", null: false
     t.integer "sign_count", default: 0
+    t.datetime "last_used_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_credentials_on_user_id"
@@ -147,6 +148,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_19_141253) do
     t.string "provider"
     t.string "uid"
     t.string "webauthn_id"
+    t.boolean "password_set", default: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

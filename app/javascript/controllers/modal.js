@@ -4,7 +4,6 @@ export default () => ({
   isOpen: false,
 
   open() {
-    console.log("open!");
     this.isOpen = true;
   },
   close() {
