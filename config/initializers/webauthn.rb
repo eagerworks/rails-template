@@ -2,15 +2,19 @@ WebAuthn.configure do |config|
   # This value needs to match `window.location.origin` evaluated by
   # the User Agent during registration and authentication ceremonies.
   # Multiple origins can be used when needed. Using more than one will imply you MUST configure
-  # rp_id explicitely. If you need your credentials to be bound to a single origin but you have more than one tenant, please see [our Advanced Configuration section](https://github.com/cedarcode/webauthn-ruby/blob/master/docs/advanced_configuration.md) instead of adding multiple origins.
-  if Rails.env.production?
-    config.allowed_origins = ["https://auth.example.com"]
-  else
-    config.allowed_origins = ["http://localhost:3000"]
-  end
+  # rp_id explicitely. If you need your credentials to be bound to a single origin but you have
+  # more than one tenant, please see
+  # [our Advanced Configuration section]
+  # (https://github.com/cedarcode/webauthn-ruby/blob/master/docs/advanced_configuration.md)
+  # instead of adding multiple origins.
+  config.allowed_origins = if Rails.env.production?
+                             ['https://auth.example.com']
+                           else
+                             ['http://localhost:3000']
+                           end
 
   # Relying Party name for display purposes
-  config.rp_name = "Eagerworks LLC"
+  config.rp_name = 'Eagerworks LLC'
 
   # Optionally configure a client timeout hint, in milliseconds.
   # This hint specifies how long the browser should wait for any
@@ -34,7 +38,8 @@ WebAuthn.configure do |config|
   #
   # config.encoding = :base64url
 
-  # Possible values: "ES256", "ES384", "ES512", "PS256", "PS384", "PS512", "RS256", "RS384", "RS512", "RS1"
+  # Possible values: "ES256", "ES384", "ES512", "PS256", "PS384", "PS512", "RS256", "RS384",
+  # "RS512", "RS1"
   # Default: ["ES256", "PS256", "RS256"]
   #
   # config.algorithms << "ES384"

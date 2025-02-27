@@ -47,11 +47,11 @@ class User < ApplicationRecord
   end
 
   def self.find_from_omniauth(auth)
-    user = find_by(provider: auth.provider, uid: auth.uid)
-    return user if user.present?
+    oauth_user = find_by(provider: auth.provider, uid: auth.uid)
+    return oauth_user if oauth_user.present?
 
-    user = find_by(email: auth.info.email)
-    user.update(provider: auth.provider, uid: auth.uid) if user.present?
-    user
+    email_user = find_by(email: auth.info.email)
+    email_user.update(provider: auth.provider, uid: auth.uid) if email_user.present?
+    email_user
   end
 end

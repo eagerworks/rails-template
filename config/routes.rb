@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     delete '/', action: :destroy, on: :collection
   end
 
-  resources :credentials
+  resources :credentials, only: [:index, :new, :create, :destroy, :update]
 
   resources :two_factor, only: [:new, :create]
 

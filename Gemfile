@@ -67,6 +67,8 @@ gem 'omniauth-facebook', '~> 10.0'
 gem 'omniauth-google-oauth2', '~> 1.2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
+gem 'webauthn', '~> 3.4'
+
 gem 'pretender', '~> 0.5.0'
 
 group :development, :test do
@@ -97,5 +99,3 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 end
-
-gem "webauthn", "~> 3.4"
