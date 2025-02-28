@@ -7,7 +7,7 @@ class Account < ApplicationRecord
 
   belongs_to :owner, class_name: 'User'
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :owner_id }
 
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_fill: [32, 32], preprocessed: true

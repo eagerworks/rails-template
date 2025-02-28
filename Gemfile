@@ -80,8 +80,11 @@ group :development, :test do
   gem 'brakeman', require: false
 
   # Linters
+  gem 'factory_bot_rails', '~> 6.4'
+  gem 'faker', '~> 3.5'
   gem 'rails_best_practices', '~> 1.23'
   gem 'reek', '~> 6.4'
+  gem 'rspec-rails', '~> 7.1'
   gem 'rubocop', '~> 1.70'
 end
 
@@ -98,4 +101,6 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 6.4'
+  gem 'simplecov', '~> 0.22.0'
 end

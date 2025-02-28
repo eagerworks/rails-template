@@ -1,8 +1,10 @@
 class Plan < ApplicationRecord
-  validates_presence_of :name, :amount
+  validates_presence_of :name, :amount, :interval
   validates :currency, presence: true, format: {
     with: /\A[a-zA-Z]{3}\z/, message: 'must be a 3-letter ISO currency code'
   }
+  validates :name, uniqueness: { scope: :interval }
+  validates_numericality_of :amount, greater_than_or_equal_to: 0
   validates :unit_label, presence: { if: :charge_per_unit? }
 
   scope :published, -> { where(private: false) }
@@ -32,7 +34,7 @@ class Plan < ApplicationRecord
   end
 
   def trial?
-    trial_period_days.positive?
+    !!trial_period_days&.positive?
   end
 
   def stripe?

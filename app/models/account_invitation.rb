@@ -4,7 +4,9 @@ class AccountInvitation < ApplicationRecord
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true
-  validates :email, uniqueness: { scope: :account_id, message: 'has already been invited' }
+  validates :email, uniqueness: {
+    scope: :account_id, message: 'has already been invited', case_sensitive: false
+  }
 
   has_secure_token
 

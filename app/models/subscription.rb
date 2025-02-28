@@ -4,6 +4,7 @@ class Subscription < ApplicationRecord
 
   validates :stripe_id, presence: true
   validates :ends_at, presence: true, if: :canceled?
+  validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
   delegate :name, to: :plan, prefix: true
 
