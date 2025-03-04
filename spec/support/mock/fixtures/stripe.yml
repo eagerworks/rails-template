@@ -1,0 +1,69 @@
+products:
+  - id: prod_1
+    name: Product 1
+    description: Description 1
+    price: 1000
+  - id: prod_2
+    name: Product 2
+    description: Description 2
+    price: 2000
+  - id: prod_3
+    name: Product 3
+    description: Description 3
+    price: 3000
+prices:
+  - id: price_1
+    product_id: prod_1
+    unit_amount: 1000
+    currency: usd
+  - id: price_2
+    product_id: prod_2
+    unit_amount: 2000
+    currency: usd
+  - id: price_3
+    product_id: prod_3
+    unit_amount: 3000
+    currency: usd
+subscriptions:
+  - id: sub_1
+    customer_id: cus_1
+    price_id: price_1
+    quantity: 1
+    status: active
+    plan:
+      id: plan_1
+      nickname: Plan 1
+      interval: month
+      interval_count: 1
+      amount: 1000
+      currency: usd
+  - id: sub_2
+    customer_id: cus_2
+    price_id: price_2
+    quantity: 1
+    status: active
+  - id: sub_3
+    customer_id: cus_3
+    price_id: price_3
+    quantity: 1
+    status: active
+customers:
+  - id: cus_1
+    email: cus_1@email.com
+  - id: cus_2
+    email: cus_2@email.com
+  - id: cus_3
+    email: cus_3@email.com
+subscription_items:
+  - id: si_1
+    subscription_id: sub_1
+    price_id: price_1
+    quantity: 1
+  - id: si_2
+    subscription_id: sub_2
+    price_id: price_2
+    quantity: 1
+  - id: si_3
+    subscription_id: sub_3
+    price_id: price_3
+    quantity: 1
