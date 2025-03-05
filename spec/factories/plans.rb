@@ -6,5 +6,13 @@ FactoryBot.define do
     trait :trial do
       trial_period_days { rand(1..30) }
     end
+
+    trait :published do
+      private { false }
+    end
+
+    trait :private do
+      private { true }
+    end
   end
 end

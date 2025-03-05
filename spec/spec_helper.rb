@@ -14,6 +14,7 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'simplecov'
+require 'pundit/rspec'
 
 SimpleCov.start 'rails' do
   add_filter 'app/admin'
