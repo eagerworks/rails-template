@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :plan do
-    name { Faker::Commerce.product_name }
+    name { Faker::Commerce.unique.product_name }
     amount { Faker::Number.number(digits: 4) }
 
     trait :trial do

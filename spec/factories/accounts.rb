@@ -18,5 +18,9 @@ FactoryBot.define do
         create(:subscription, account: account)
       end
     end
+
+    trait :personal do
+      personal { true }
+    end
   end
 end
