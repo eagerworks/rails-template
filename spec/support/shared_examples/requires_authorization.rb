@@ -1,5 +1,9 @@
-RSpec.shared_examples 'requires authentication' do |error_message: nil|
+RSpec.shared_examples 'requires authorization' do |error_message: nil|
   context 'when not authenticated' do
+    before(:each) do
+      sign_out :user
+    end
+
     it 'redirects to the root path' do
       subject
       expect(response).to redirect_to(root_path)

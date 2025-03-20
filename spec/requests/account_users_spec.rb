@@ -8,7 +8,7 @@ RSpec.describe "AccountUsers", type: :request do
   describe "GET /edit" do
     subject { get edit_account_user_path(account_user) }
 
-    it_behaves_like 'requires authentication'
+    it_behaves_like 'requires authorization'
 
     context 'when authenticated' do
       before { sign_in user }
@@ -33,7 +33,7 @@ RSpec.describe "AccountUsers", type: :request do
   describe "PATCH /update" do
     subject { patch account_user_path(account_user), params: { account_user: { role: 'member' } } }
 
-    it_behaves_like 'requires authentication'
+    it_behaves_like 'requires authorization'
 
     context 'when authenticated' do
       before { sign_in user }
@@ -81,7 +81,7 @@ RSpec.describe "AccountUsers", type: :request do
   describe "DELETE /destroy" do
     subject { delete account_user_path(account_user) }
 
-    it_behaves_like 'requires authentication', error_message: 'You can\'t delete the owner of the account'
+    it_behaves_like 'requires authorization', error_message: 'You can\'t delete the owner of the account'
 
     context 'when authenticated' do
       before { sign_in user }
