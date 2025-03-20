@@ -8,6 +8,8 @@ class AccountUser < ApplicationRecord
 
   enum :role, { member: 0, admin: 1 }
 
+  validates :role, presence: true
+
   def owner?
     account.owner_id == user_id
   end

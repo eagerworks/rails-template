@@ -18,6 +18,10 @@ RSpec.describe AccountUser, type: :model do
     it { should delegate_method(:email).to(:user) }
   end
 
+  describe 'validations' do
+    it { should validate_presence_of(:role) }
+  end
+
   describe 'attributes' do
     it { should define_enum_for(:role).with_values(member: 0, admin: 1) }
   end
