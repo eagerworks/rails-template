@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "Accounts", type: :request do
+RSpec.describe 'Accounts', type: :request do
   let(:user) { create(:user) }
   let(:account) { create(:account) }
   let!(:account_user) { create(:account_user, account: account, user: user, role: :admin) }
 
-  describe "GET /index" do
+  describe 'GET /index' do
     subject { get accounts_path }
 
     it_behaves_like 'authenticated request'
@@ -20,7 +20,7 @@ RSpec.describe "Accounts", type: :request do
     end
   end
 
-  describe "GET /new" do
+  describe 'GET /new' do
     subject { get new_account_path }
 
     it_behaves_like 'authenticated request'
@@ -35,7 +35,7 @@ RSpec.describe "Accounts", type: :request do
     end
   end
 
-  describe "POST /create" do
+  describe 'POST /create' do
     subject { post accounts_path, params: { account: { name: 'New Account' } } }
 
     it_behaves_like 'authenticated request'
@@ -45,15 +45,15 @@ RSpec.describe "Accounts", type: :request do
 
       context 'with valid parameters' do
         it 'creates a new account' do
-          expect {
+          expect do
             subject
-          }.to change(Account, :count).by(1)
+          end.to change(Account, :count).by(1)
         end
 
         it 'creates an account user with admin role' do
-          expect {
+          expect do
             subject
-          }.to change(AccountUser, :count).by(1)
+          end.to change(AccountUser, :count).by(1)
         end
 
         it 'sets the current user as owner' do
@@ -76,9 +76,9 @@ RSpec.describe "Accounts", type: :request do
         subject { post accounts_path, params: { account: { name: '' } } }
 
         it 'does not create a new account' do
-          expect {
+          expect do
             subject
-          }.not_to change(Account, :count)
+          end.not_to change(Account, :count)
         end
 
         it 'renders the new template' do
@@ -94,7 +94,7 @@ RSpec.describe "Accounts", type: :request do
     end
   end
 
-  describe "GET /show" do
+  describe 'GET /show' do
     subject { get account_path(account) }
 
     it_behaves_like 'authenticated request'
@@ -114,7 +114,7 @@ RSpec.describe "Accounts", type: :request do
     end
   end
 
-  describe "PATCH /switch" do
+  describe 'PATCH /switch' do
     subject { patch account_switch_path(account) }
 
     it_behaves_like 'authenticated request'
@@ -144,4 +144,4 @@ RSpec.describe "Accounts", type: :request do
       end
     end
   end
-end 
+end

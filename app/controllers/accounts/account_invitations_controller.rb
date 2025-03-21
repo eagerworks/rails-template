@@ -22,7 +22,7 @@ module Accounts
 
     def update
       result = ::AccountInvitations::Update.call(invitation: @account_invitation,
-                                                 params: account_invitation_params)
+                                                 params: account_invitation_params.to_h)
       if result.success?
         redirect_to account_path(@account_invitation.account),
                     notice: 'Invitation updated successfully'

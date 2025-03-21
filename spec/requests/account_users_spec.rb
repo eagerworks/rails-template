@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "AccountUsers", type: :request do
+RSpec.describe 'AccountUsers', type: :request do
   let(:user) { create(:user) }
   let(:account) { create(:account) }
   let!(:account_user) { create(:account_user, account: account, user: user, role: :admin) }
 
-  describe "GET /edit" do
+  describe 'GET /edit' do
     subject { get edit_account_user_path(account_user) }
 
     it_behaves_like 'requires authorization'
@@ -30,7 +30,7 @@ RSpec.describe "AccountUsers", type: :request do
     end
   end
 
-  describe "PATCH /update" do
+  describe 'PATCH /update' do
     subject { patch account_user_path(account_user), params: { account_user: { role: 'member' } } }
 
     it_behaves_like 'requires authorization'
@@ -40,9 +40,9 @@ RSpec.describe "AccountUsers", type: :request do
 
       context 'with valid parameters' do
         it 'updates the account user' do
-          expect {
+          expect do
             subject
-          }.to change { account_user.reload.role }.to('member')
+          end.to change { account_user.reload.role }.to('member')
         end
 
         it 'redirects to the account page' do
@@ -60,9 +60,9 @@ RSpec.describe "AccountUsers", type: :request do
         subject { patch account_user_path(account_user), params: { account_user: { role: '' } } }
 
         it 'does not update the account user' do
-          expect {
+          expect do
             subject
-          }.not_to change { account_user.reload.role }
+          end.not_to change { account_user.reload.role }
         end
 
         it 'renders the edit template' do
@@ -78,18 +78,19 @@ RSpec.describe "AccountUsers", type: :request do
     end
   end
 
-  describe "DELETE /destroy" do
+  describe 'DELETE /destroy' do
     subject { delete account_user_path(account_user) }
 
-    it_behaves_like 'requires authorization', error_message: 'You can\'t delete the owner of the account'
+    it_behaves_like 'requires authorization',
+                    error_message: 'You can\'t delete the owner of the account'
 
     context 'when authenticated' do
       before { sign_in user }
 
       it 'destroys the account user' do
-        expect {
+        expect do
           subject
-        }.to change(AccountUser, :count).by(-1)
+        end.to change(AccountUser, :count).by(-1)
       end
 
       it 'redirects to the account page' do

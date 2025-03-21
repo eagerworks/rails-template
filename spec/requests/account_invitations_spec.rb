@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "AccountInvitations", type: :request do
-  let (:user) { create(:user) }
+RSpec.describe 'AccountInvitations', type: :request do
+  let(:user) { create(:user) }
   let!(:invitation) { create(:account_invitation) }
 
   before(:each) do
@@ -45,7 +45,7 @@ RSpec.describe "AccountInvitations", type: :request do
     end
   end
 
-  describe "GET /show" do
+  describe 'GET /show' do
     subject { get account_invitation_path(invitation) }
 
     it_behaves_like 'invitation request'
@@ -56,7 +56,7 @@ RSpec.describe "AccountInvitations", type: :request do
     end
   end
 
-  describe "PUT /update" do
+  describe 'PUT /update' do
     subject { put account_invitation_path(invitation) }
 
     it_behaves_like 'invitation request'
@@ -97,7 +97,7 @@ RSpec.describe "AccountInvitations", type: :request do
     end
   end
 
-  describe "DELETE /destroy" do
+  describe 'DELETE /destroy' do
     subject { delete account_invitation_path(invitation) }
 
     it_behaves_like 'invitation request'

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "Home", type: :request do
-  describe "GET /index" do
+RSpec.describe 'Home', type: :request do
+  describe 'GET /index' do
     subject { get root_path }
 
     it 'renders the index template' do

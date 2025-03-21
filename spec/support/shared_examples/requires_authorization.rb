@@ -15,4 +15,4 @@ RSpec.shared_examples 'requires authorization' do |error_message: nil|
       expect(flash[:error]).to eq(message)
     end
   end
-end 
+end
