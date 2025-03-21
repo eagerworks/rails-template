@@ -56,15 +56,15 @@ module Plans
     end
 
     def trial?
-      Current.account.subscription.blank? && plan.trial?
+      Current.account&.subscription.blank? && plan.trial?
     end
 
     def current_plan?
-      plan == Current.account.plan
+      plan == Current.account&.plan
     end
 
     def subscribed?
-      Current.account.subscribed?
+      Current.account&.subscribed?
     end
 
     def features

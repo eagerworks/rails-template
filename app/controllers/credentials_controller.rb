@@ -1,4 +1,5 @@
 class CredentialsController < ApplicationController
+  before_action :authenticate_user!
   before_action :load_and_authorize_resource
   before_action :check_webauthn, only: :create
 
