@@ -1,5 +1,7 @@
+@import "./fonts/inter.css";
+@import "./flatpickr.css";
+@import "./pagination.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "./fonts/inter.css";

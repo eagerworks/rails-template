@@ -1,0 +1,3 @@
+<%= form_with url: '/' do |f| %>
+  <%= render Form::DatePicker.new(name: 'date', form: f, format: format) %>
+<% end %>

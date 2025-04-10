@@ -1,0 +1,38 @@
+.pagy {
+  @apply isolate inline-flex -space-x-px rounded-md shadow;
+
+  .gap {
+    @apply relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-gray-300 ring-inset;
+
+    &:focus {
+      @apply outline-offset-0;
+    }
+  }
+
+  a:not(.gap) {
+    @apply relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-gray-300 ring-inset;
+    &:hover {
+      @apply bg-gray-50;
+    }
+    &:focus {
+      @apply z-20 outline-offset-0;
+    }
+    &:not([href]) {
+      /* disabled links */
+      @apply text-gray-300 bg-gray-100 cursor-default;
+    }
+    &.current {
+      @apply z-10 bg-indigo-600 text-white ring-indigo-600;
+
+      &:focus-visible {
+        @apply outline-2 outline-offset-2 outline-indigo-600;
+      }
+    }
+    &:first-child {
+      @apply rounded-l-md px-3 py-2 text-gray-400;
+    }
+    &:last-child {
+      @apply rounded-r-md px-3 py-2 text-gray-400;
+    }
+  }
+}

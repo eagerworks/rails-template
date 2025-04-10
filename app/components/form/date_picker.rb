@@ -2,16 +2,21 @@ module Form
   class DatePicker < Input
     use_helpers :heroicon
 
-    def initialize(autohide: true, **args)
+    def initialize(autohide: true, format: '%Y-%m-%d', **args)
       super(**args)
 
+      @format = format
       attributes['datepicker-autohide'] = autohide
     end
 
     private
 
-    def html_attributes
-      attributes.keys.select { |key| attributes[key] }.join(' ')
+    def picker_format
+      @format.gsub('%', '')
+    end
+
+    def formatted_date
+      value&.strftime(@format)
     end
 
     def classes

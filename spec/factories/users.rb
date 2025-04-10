@@ -15,5 +15,15 @@ FactoryBot.define do
         create(:account_user, account: account, user: user, role: :admin)
       end
     end
+
+    trait :with_avatar do
+      after(:create) do |user|
+        user.avatar.attach(
+          io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'avatar.avif')),
+          filename: 'avatar.avif',
+          content_type: 'image/avif'
+        )
+      end
+    end
   end
 end

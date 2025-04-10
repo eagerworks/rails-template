@@ -63,16 +63,7 @@ module Form
     end
 
     def error?
-      object.try(:errors)&.include?(name)
-    end
-
-    def focus_class
-      case primary_color
-      when 'indigo'
-        'focus:ring-indigo-600'
-      when 'aqua'
-        'focus:ring-aqua-600'
-      end
+      !!object.try(:errors)&.include?(name)
     end
   end
 end

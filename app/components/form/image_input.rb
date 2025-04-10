@@ -11,7 +11,7 @@ module Form
     def image_url
       return '' unless attached?
 
-      object.send(name)
+      object.send(name)&.url
     end
   end
 end

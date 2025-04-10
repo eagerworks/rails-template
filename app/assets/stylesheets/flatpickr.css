@@ -1,0 +1,9 @@
+@import "flatpickr/dist/flatpickr.css";
+
+.flatpickr-day.selected {
+  @apply bg-indigo-600 text-white border-indigo-600;
+}
+
+.flatpickr-day.selected:hover {
+  @apply bg-indigo-500 border-indigo-500;
+}
