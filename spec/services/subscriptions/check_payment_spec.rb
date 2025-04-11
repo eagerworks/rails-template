@@ -31,9 +31,9 @@ RSpec.describe Subscriptions::CheckPayment, type: :service do
     it 'returns a success' do
       expect(subject.error).to be_nil
       expect(subject.success?).to be_truthy
-      expect(subject.payload).to be_instance_of(Subscription)
+      expect(subject.subscription).to be_instance_of(Subscription)
 
-      subscription = subject.payload
+      subscription = subject.subscription
 
       expect(subscription.plan).to eq(plan)
       expect(subscription.account).to eq(account)
@@ -55,7 +55,7 @@ RSpec.describe Subscriptions::CheckPayment, type: :service do
 
       it 'sets the trial_ends_at date' do
         trial_end = Time.at(stripe_subscription['trial_end'])
-        subscription = subject.payload
+        subscription = subject.subscription
         expect(subscription.trial_ends_at).to eq(trial_end)
       end
     end
@@ -64,7 +64,7 @@ RSpec.describe Subscriptions::CheckPayment, type: :service do
       let!(:stripe_mock) { Mock::Stripe.new(subscription_trial: false) }
 
       it 'does not set the trial_ends_at date' do
-        subscription = subject.payload
+        subscription = subject.subscription
         expect(subscription.trial_ends_at).to be_nil
       end
     end

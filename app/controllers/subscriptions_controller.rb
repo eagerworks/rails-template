@@ -75,7 +75,7 @@ class SubscriptionsController < ApplicationController
       @plan.stripe_id
     else
       result = ::Plans::CreateStripeProduct.call!(plan: @plan)
-      result.payload.id
+      result.price.id
     end
   end
 

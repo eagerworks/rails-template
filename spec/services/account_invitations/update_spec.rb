@@ -15,7 +15,7 @@ RSpec.describe AccountInvitations::Update, type: :service do
 
     it 'returns the updated invitation' do
       expect(subject).to be_a_success
-      expect(subject.payload).to eq(invitation)
+      expect(subject.invitation).to eq(invitation)
     end
 
     it 'sends an email if the email has changed' do

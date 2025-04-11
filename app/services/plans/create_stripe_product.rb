@@ -1,18 +1,15 @@
 module Plans
-  class CreateStripeProduct < ApplicationService
-    def call(plan:)
-      @plan = plan
-      plan.update!(stripe_id: price.id)
+  class CreateStripeProduct
+    include Interactor
 
-      success(price)
+    def call
+      context.plan.update!(stripe_id: price.id)
     end
 
     private
 
     def product
       return @product if @product.present?
-
-      product_name = "#{@plan.name} Plan"
 
       # Search for existing product
       products = Stripe::Product.search(limit: 1,
@@ -27,17 +24,21 @@ module Plans
       @product
     end
 
+    def product_name
+      "#{context.plan.name} Plan"
+    end
+
     def price
-      @price ||= Stripe::Price.create({
-                                        unit_amount: @plan.amount,
-                                        currency: @plan.currency,
-                                        recurring: { interval: interval },
-                                        product: product.id
-                                      })
+      context.price ||= Stripe::Price.create({
+                                               unit_amount: context.plan.amount,
+                                               currency: context.plan.currency,
+                                               recurring: { interval: interval },
+                                               product: product.id
+                                             })
     end
 
     def interval
-      @plan.interval == 'monthly' ? 'month' : 'year'
+      context.plan.interval == 'monthly' ? 'month' : 'year'
     end
   end
 end

@@ -6,7 +6,7 @@ module Subscriptions
     def show; end
 
     def destroy
-      result = Subscriptions::Cancel.call(@subscription)
+      result = Subscriptions::Cancel.call(subscription: @subscription)
 
       if result.success?
         redirect_to root_path, notice: 'Your subscription has been canceled.'

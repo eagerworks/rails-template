@@ -14,7 +14,6 @@ detectors:
   UtilityFunction:
     exclude:
       - ApplicationController#current_account
-      - ApplicationService#success
   DuplicateMethodCall:
     enabled: false
   ManualDispatch:

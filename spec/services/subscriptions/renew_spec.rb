@@ -47,7 +47,7 @@ RSpec.describe Subscriptions::Renew, type: :service do
     end
 
     it 'returns the subscription' do
-      expect(subject.payload).to eq(subscription)
+      expect(subject.subscription).to eq(subscription)
     end
   end
 

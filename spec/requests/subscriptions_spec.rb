@@ -113,7 +113,7 @@ RSpec.describe 'Subscriptions', type: :request do
 
       before do
         allow(Plans::CreateStripeProduct).to receive(:call!).and_return(
-          double(payload: stripe_product)
+          double(price: stripe_product)
         )
       end
 

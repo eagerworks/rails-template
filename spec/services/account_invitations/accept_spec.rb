@@ -20,7 +20,7 @@ RSpec.describe AccountInvitations::Accept, type: :service do
 
   it 'returns the account user' do
     expect(subject).to be_a_success
-    expect(subject.payload).to be_a(AccountUser)
+    expect(subject.account_user).to be_a(AccountUser)
   end
 
   it 'returns a success' do

@@ -72,6 +72,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::ControllerHelpers, type: :component
   config.include ViewComponent::TestHelpers, type: :component
 
@@ -80,6 +81,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :request) do
+    Rails.application.reload_routes_unless_loaded
+  end
+
+  config.before(:each, type: :system) do
     Rails.application.reload_routes_unless_loaded
   end
 end
