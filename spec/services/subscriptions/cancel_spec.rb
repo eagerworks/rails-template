@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Subscriptions::Cancel, type: :service do
   let!(:subscription) { create(:subscription) }
-  subject { described_class.call(subscription) }
+  subject { described_class.call(subscription: subscription) }
   let!(:stripe_mock) { Mock::Stripe.new }
 
   it 'cancels the subscription' do
@@ -26,6 +26,6 @@ RSpec.describe Subscriptions::Cancel, type: :service do
     result = subject
     expect(result.error).to be_nil
     expect(result.success?).to be_truthy
-    expect(result.payload).to be_instance_of(Subscription)
+    expect(result.subscription).to be_instance_of(Subscription)
   end
 end

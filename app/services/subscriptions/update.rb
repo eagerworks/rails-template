@@ -1,23 +1,20 @@
 module Subscriptions
-  class Update < ApplicationService
-    def call(subscription:, params:)
-      @subscription = subscription
-      @params = params
+  class Update
+    include Interactor
 
+    def call
       update_stripe_plan
 
-      @subscription.update!(udpate_params)
-
-      success(@subscription)
+      context.subscription.update!(udpate_params)
     end
 
     def udpate_params
-      @params.merge(trial_ends_at: trial_end, status: @stripe_subscription.status)
+      context.params.merge(trial_ends_at: trial_end, status: context.stripe_subscription.status)
     end
 
     def update_stripe_plan
-      @stripe_subscription = Stripe::Subscription.update(
-        @subscription.stripe_id,
+      context.stripe_subscription = Stripe::Subscription.update(
+        context.subscription.stripe_id,
         {
           items: [
             {
@@ -33,16 +30,17 @@ module Subscriptions
     def trial_end
       return nil unless plan.trial?
 
-      @subscription.created_at + plan.trial_period_days.days
+      context.subscription.created_at + plan.trial_period_days.days
     end
 
     def plan
-      @plan ||= Plan.find(@params[:plan_id])
+      context.plan ||= Plan.find(context.params[:plan_id])
     end
 
     def subscription_item
-      @subscription_item ||= Stripe::SubscriptionItem.list(subscription: @subscription.stripe_id)
-                                                     .data.first
+      context.subscription_item ||= Stripe::SubscriptionItem.list(
+        subscription: context.subscription.stripe_id
+      ).data.first
     end
   end
 end

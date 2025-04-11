@@ -61,6 +61,9 @@ gem 'importmap-rails', '~> 2.1'
 
 gem 'stripe', '~> 13.4'
 
+# Services
+gem 'interactor', '~> 3.1'
+
 # OmniAuth
 gem 'omniauth', '~> 2.1'
 gem 'omniauth-facebook', '~> 10.0'

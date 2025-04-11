@@ -1,29 +1,33 @@
 module Subscriptions
-  class CheckPayment < ApplicationService
-    def call(session_id:, user:, account:)
-      @session_id = session_id
-      @user = user
-      @account = account
+  class CheckPayment
+    include Interactor
 
-      return failure('The payment failed or was canceled.') if session.status != 'complete'
+    def call
+      context.fail!(error: 'The payment failed or was canceled.') if session.status != 'complete'
 
       update_user
-      success(create_subscription)
+      context.subscription = create_subscription
     end
 
     private
 
     def create_subscription
-      attributes = {
+      Subscription.create!(subscription_attributes)
+    end
+
+    def subscription_attributes
+      {
         plan: plan,
-        account: @account,
+        account: context.account,
         quantity: subscription.quantity,
         ends_at: Time.at(subscription.current_period_end),
         stripe_id: subscription.id,
-        trial_ends_at: subscription.trial_end && Time.at(subscription.trial_end)
+        trial_ends_at: trial_ends_at
       }
+    end
 
-      Subscription.create!(attributes)
+    def trial_ends_at
+      subscription.trial_end && Time.at(subscription.trial_end)
     end
 
     def subscription
@@ -35,7 +39,7 @@ module Subscriptions
     end
 
     def session
-      @session ||= Stripe::Checkout::Session.retrieve(@session_id)
+      @session ||= Stripe::Checkout::Session.retrieve(context.session_id)
     end
 
     def customer
@@ -43,7 +47,7 @@ module Subscriptions
     end
 
     def update_user
-      @user.update!(stripe_id: customer.id)
+      context.user.update!(stripe_id: customer.id)
     end
   end
 end

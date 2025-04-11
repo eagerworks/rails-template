@@ -1,15 +1,24 @@
 module AccountInvitations
-  class Accept < ApplicationService
-    def call(invitation:, user:)
-      account = invitation.account
-      account_user = account.account_users.new(user: user, role: invitation.role)
+  class Accept
+    include Interactor
 
+    def call
       ApplicationRecord.transaction do
         account_user.save!
-        invitation.destroy!
+        context.invitation.destroy!
       end
+    end
 
-      success(account_user)
+    private
+
+    def account_user
+      context.account_user = account.account_users.new(
+        user: context.user, role: context.invitation.role
+      )
+    end
+
+    def account
+      context.invitation.account
     end
   end
 end

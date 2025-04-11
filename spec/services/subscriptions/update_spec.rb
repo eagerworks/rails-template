@@ -36,7 +36,7 @@ RSpec.describe Subscriptions::Update, type: :service do
   end
 
   it 'returns the subscription' do
-    expect(subject.payload).to eq(subscription)
+    expect(subject.subscription).to eq(subscription)
   end
 
   context 'when the plan has a trial' do

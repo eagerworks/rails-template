@@ -46,6 +46,6 @@ RSpec.describe Plans::CreateStripeProduct, type: :service do
   it 'returns the stripe price' do
     result = subject
     expect(result.success?).to be_truthy
-    expect(result.payload).to be_instance_of(Stripe::Price)
+    expect(result.price).to be_instance_of(Stripe::Price)
   end
 end
