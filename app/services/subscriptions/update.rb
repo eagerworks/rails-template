@@ -6,6 +6,14 @@ module Subscriptions
       update_stripe_plan
 
       context.subscription.update!(udpate_params)
+      notify_user
+    end
+
+    private
+
+    def notify_user
+      NewSubscriptionNotifier.with(subscription: context.subscription)
+                             .deliver(context.subscription.account.users)
     end
 
     def udpate_params

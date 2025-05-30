@@ -20,14 +20,16 @@
             </div>
           <% end %>
 
-          <% current_user.accounts.each do |account| %>
-            <% dropdown.with_item(href: account_switch_path(account, return_to: request.path), data: { turbo_method: :patch }) do %>
-              <div class="flex items-center gap-4">
-                <%= avatar_component(account: account) %>
-                <span class="text-sm/6 font-semibold text-gray-900">
-                  <%= account.name %>
-                </span>
-              </div>
+          <%= list_component do |list| %>
+            <% current_user.accounts.each do |account| %>
+              <% list.with_item(href: account_switch_path(account, return_to: request.path), data: { turbo_method: :patch }) do %>
+                <div class="flex items-center gap-4">
+                  <%= avatar_component(account: account) %>
+                  <span class="text-sm/6 font-semibold text-gray-900">
+                    <%= account.name %>
+                  </span>
+                </div>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
@@ -42,42 +44,49 @@
 
     <div class="flex-1 flex justify-end">
       <% if user_signed_in? %>
-        <%= dropdown_component(align: :right) do |dropdown| %>
-          <% dropdown.with_button do %>
-            <%= avatar_component(user: current_user) %>
-          <% end %>
+        <div class="flex items-center gap-3">
+          <%# Notifications %>
+          <%= render 'layouts/bulletin_board' %>
 
-          <%= dropdown.with_section do |section| %>
-            <% section.with_item(href: edit_user_registration_path) do %>
-              Profile
+          <%= dropdown_component(align: :right) do |dropdown| %>
+            <% dropdown.with_button do %>
+              <%= avatar_component(user: current_user) %>
             <% end %>
-            <% section.with_item(href: edit_accounts_password_path) do %>
-              Change password
-            <% end %>
-            <% section.with_item(href: accounts_path) do %>
-              Accounts
-            <% end %>
-            <% if policy(Subscription).index? %>
-              <% section.with_item(href: subscriptions_path) do %>
-                Billing
+
+            <%= list_component do |list| %>
+              <%= list.with_section do |section| %>
+                <% section.with_item(href: edit_user_registration_path) do %>
+                  Profile
+                <% end %>
+                <% section.with_item(href: edit_accounts_password_path) do %>
+                  Change password
+                <% end %>
+                <% section.with_item(href: accounts_path) do %>
+                  Accounts
+                <% end %>
+                <% if policy(Subscription).index? %>
+                  <% section.with_item(href: subscriptions_path) do %>
+                    Billing
+                  <% end %>
+                <% end %>
+              <% end %>
+
+              <% if current_user.admin? %>
+                <%= list.with_section do |section| %>
+                  <% section.with_item(href: admin_root_path) do %>
+                    Admin site
+                  <% end %>
+                <% end %>
+              <% end %>
+
+              <%= list.with_section do |section| %>
+                <% section.with_item(href: destroy_user_session_path, data: { turbo_method: 'delete' }) do %>
+                  Log out
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
-
-          <% if current_user.admin? %>
-            <%= dropdown.with_section do |section| %>
-              <% section.with_item(href: admin_root_path) do %>
-                Admin site
-              <% end %>
-            <% end %>
-          <% end %>
-
-          <%= dropdown.with_section do |section| %>
-            <% section.with_item(href: destroy_user_session_path, data: { turbo_method: 'delete' }) do %>
-              Log out
-            <% end %>
-          <% end %>
-        <% end %>
+        </div>
       <% else %>
         <%= link_to new_user_session_path, class: 'text-sm/6 font-semibold text-gray-900' do %>
           Log in <span aria-hidden="true">&rarr;</span>

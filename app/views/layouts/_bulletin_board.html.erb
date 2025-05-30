@@ -1,0 +1,36 @@
+<%= turbo_stream_from current_user, :notifications %>
+
+<%= turbo_frame_tag :notifications, class: 'h-full flex items-center' do %>
+  <%= dropdown_component(align: :right) do |dropdown| %>
+    <% dropdown.with_button do %>
+      <div class="h-full flex items-center">
+        <button type="button" class="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
+          <% if current_user.notifications.unread.any? %>
+            <span class="rounded-full bg-red-600 size-3 absolute top-0.5 right-1"></span>
+          <% end %>
+          <span class="sr-only">View notifications</span>
+          <%= heroicon('bell', variant: 'outline', options: { class: 'size-6 text-gray-400' }) %>
+        </button>
+      </div>
+    <% end %>
+
+    <% if current_user.notifications.unread.empty? %>
+      <div class="p-3 text-center">
+        <h6>
+          No new notifications!
+        </h6>
+      </div>
+    <% else %>
+      <div class="min-w-96">
+        <%= list_component(divider: true) do |list| %>
+          <% current_user.notifications.unread.each do |notification| %>
+            <% list.with_item(href: notification.url, data: { turbo_prefetch: 'false', turbo_frame: '_top' }) do %>
+              <h6 class="font-bold"><%= notification.title %></h6>
+              <p class="mt-2"><%= notification.subtitle %></p>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

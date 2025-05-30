@@ -2,13 +2,12 @@
 
 module Elements
   class Dropdown < BaseComponent
-    renders_many :sections, 'DropdownSection'
-    renders_many :items, 'DropdownItem'
     renders_one :button
 
-    def initialize(align: :left)
+    def initialize(align: :left, label: '')
       super()
 
+      @label = label
       @align = align
     end
 
@@ -27,38 +26,6 @@ module Elements
       when :right
         'origin-top-right right-0'
       end
-    end
-
-    class DropdownItem < BaseComponent
-      def initialize(href:, **attributes)
-        super(**attributes)
-
-        @href = href
-      end
-
-      erb_template <<~ERB
-        <%= link_to(
-          @href,
-          class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:outline-none',
-          role: 'menuitem',
-          tabindex: -1,
-          **attributes
-        ) do %>
-          <%= content %>
-        <% end %>
-      ERB
-    end
-
-    class DropdownSection < BaseComponent
-      renders_many :items, DropdownItem
-
-      erb_template <<~ERB
-        <div class="py-1" role="none">
-          <% items.each do |item| %>
-            <%= item %>
-          <% end %>
-        </div>
-      ERB
     end
   end
 end

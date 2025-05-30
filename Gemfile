@@ -74,6 +74,9 @@ gem 'webauthn', '~> 3.4'
 
 gem 'pretender', '~> 0.5.0'
 
+# Manage notifications
+gem 'noticed', '~> 2.6'
+
 group :development, :test do
   # See
   # https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

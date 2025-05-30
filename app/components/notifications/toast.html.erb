@@ -1,0 +1,16 @@
+<div class="max-w-lg fixed z-50 bottom-4 right-4" x-data="notification" x-show="isOpen" x-transition @notification:initialized.window="replace">
+  <%= render Layout::Card.new do |card| %>
+    <% card.with_header do %>
+      <div class="flex justify-between items-center gap-4">
+        <%= notification.title %>
+        <button @click="close" class="text-gray-400 hover:text-gray-600 focus:outline-none" data-action="click->notifications#dismiss" data-notification-id="<%= notification.id %>">
+          <%= heroicon('x-mark', variant: 'outline', options: { class: 'size-6' }) %>
+        </button>
+      </div>
+    <% end %>
+    <p class="mb-4 text-gray-600">
+      <%= notification.subtitle %>
+    </p>
+    <%= link_to 'View', notification.url, class: 'text-indigo-600 hover:text-indigo-900', data: { turbo_prefetch: 'false', turbo_frame: '_top' } %>
+  <% end %>
+</div>

@@ -7,9 +7,15 @@ module Subscriptions
 
       update_user
       context.subscription = create_subscription
+      notify_user
     end
 
     private
+
+    def notify_user
+      NewSubscriptionNotifier.with(subscription: context.subscription)
+                             .deliver(context.account.users)
+    end
 
     def create_subscription
       Subscription.create!(subscription_attributes)

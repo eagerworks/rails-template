@@ -1,7 +1,15 @@
 <%= render Layout::Card.new(padding: false) do %>
-  <ul class="divide-y divide-gray-300">
-    <% items.each do |item| %>
-      <%= item %>
+  <div class="divide-y divide-gray-100">
+    <% if items? %>
+      <ul class="<%= class_list('py-1', 'divide-y divide-gray-100': @divider) %>" role="none">
+        <% items.each do |item| %>
+          <%= item %>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
+
+    <% sections.each do |section| %>
+      <%= section %>
+    <% end %>
+  </div>
 <% end %>

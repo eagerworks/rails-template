@@ -5,22 +5,17 @@ RSpec.describe Elements::List, type: :component do
     render_inline(described_class.new)
 
     expect(page).to have_css('div.overflow-hidden') # Card class
-    expect(page).to have_css('ul.divide-y')
-    expect(page).to have_css('ul.divide-gray-300')
   end
 
   describe 'items' do
     it 'renders list items with proper styling' do
       render_inline(described_class.new) do |c|
-        c.with_item { 'Item 1' }
-        c.with_item { 'Item 2' }
-        c.with_item { 'Item 3' }
+        c.with_item(href: '#') { 'Item 1' }
+        c.with_item(href: '#') { 'Item 2' }
+        c.with_item(href: '#') { 'Item 3' }
       end
 
       expect(page).to have_css('li', count: 3)
-      expect(page).to have_css('li.px-6')
-      expect(page).to have_css('li.py-3')
-      expect(page).to have_css('li.hover\\:bg-gray-50')
 
       expect(page).to have_text('Item 1')
       expect(page).to have_text('Item 2')
@@ -29,7 +24,7 @@ RSpec.describe Elements::List, type: :component do
 
     it 'renders items with HTML content' do
       render_inline(described_class.new) do |c|
-        c.with_item do
+        c.with_item(href: '#') do
           '<span class="font-bold">Bold Item</span>'.html_safe
         end
       end
@@ -41,7 +36,7 @@ RSpec.describe Elements::List, type: :component do
     it 'renders no items when none provided' do
       render_inline(described_class.new)
 
-      expect(page).to have_css('ul')
+      expect(page).not_to have_css('ul')
       expect(page).not_to have_css('li')
     end
   end
@@ -74,7 +69,7 @@ RSpec.describe Elements::List, type: :component do
   describe 'complex content' do
     it 'renders items with mixed content' do
       render_inline(described_class.new) do |c|
-        c.with_item do
+        c.with_item(href: '#') do
           <<-HTML.html_safe
             <div class="flex justify-between">
               <span class="font-bold">Title</span>

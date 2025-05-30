@@ -2,6 +2,7 @@ class SubscriptionsController < ApplicationController
   before_action :require_current_account_admin!
   before_action :load_plan, only: [:new, :sessions]
   before_action :load_subscription, only: [:update, :index]
+  after_action :clear_notifications, only: [:index]
   skip_before_action :verify_authenticity_token, only: [:sessions]
 
   layout 'settings', only: [:index]
@@ -33,6 +34,11 @@ class SubscriptionsController < ApplicationController
   end
 
   private
+
+  def clear_notifications
+    current_user.notifications.where(type: 'NewSubscriptionNotifier::Notification')
+                .each(&:mark_as_read!)
+  end
 
   def subscription_params
     params.require(:subscription).permit(:plan_id)

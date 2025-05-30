@@ -1,6 +1,4 @@
-<%= render Elements::Dropdown.new(align: align) do |dropdown| %>
-  <%= content %>
-
+<%= render Elements::Dropdown.new(align: align, label: content) do |dropdown| %>
   <% dropdown.with_item(href: '#') do %>
     Account settings
   <% end %>

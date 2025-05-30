@@ -39,55 +39,6 @@ RSpec.describe Elements::Dropdown, type: :component do
     end
   end
 
-  describe 'items' do
-    it 'renders dropdown items' do
-      render_inline(described_class.new) do |c|
-        c.with_item(href: '/profile') { 'Profile' }
-        c.with_item(href: '/settings') { 'Settings' }
-      end
-
-      expect(page).to have_link('Profile', href: '/profile')
-      expect(page).to have_link('Settings', href: '/settings')
-      expect(page).to have_css('a.block')
-      expect(page).to have_css('a.px-4')
-      expect(page).to have_css('a.py-2')
-      expect(page).to have_css('a.text-sm')
-      expect(page).to have_css('a.text-gray-700')
-      expect(page).to have_css('a.hover\\:bg-gray-100')
-      expect(page).to have_css('a.hover\\:text-gray-900')
-    end
-
-    it 'renders items with custom attributes' do
-      render_inline(described_class.new) do |c|
-        c.with_item(href: '/profile', class: 'custom-item', data: { test: 'value' }) { 'Profile' }
-      end
-
-      expect(page).to have_css('a.custom-item')
-      expect(page).to have_css('a[data-test="value"]')
-    end
-  end
-
-  describe 'sections' do
-    it 'renders multiple sections with items' do
-      render_inline(described_class.new) do |c|
-        c.with_section do |s|
-          s.with_item(href: '/profile') { 'Profile' }
-          s.with_item(href: '/settings') { 'Settings' }
-        end
-        c.with_section do |s|
-          s.with_item(href: '/logout') { 'Logout' }
-        end
-      end
-
-      expect(page).to have_css('div.divide-y')
-      expect(page).to have_css('div.divide-gray-100')
-      expect(page).to have_css('div.py-1[role="none"]', count: 2)
-      expect(page).to have_link('Profile', href: '/profile')
-      expect(page).to have_link('Settings', href: '/settings')
-      expect(page).to have_link('Logout', href: '/logout')
-    end
-  end
-
   describe 'focus styles' do
     it 'includes focus classes' do
       render_inline(described_class.new)
