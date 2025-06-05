@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "Docker set up on $KAMAL_HOSTS..."
+
+set -e
+
+BASTION_HOST="ubuntu@<bastion public ip>" # Replace with your bastion host
+
+for host in $(echo "$KAMAL_HOSTS" | tr ',' '\n'); do
+  echo "Running docker-setup on host: $host"
+  cat ./.kamal/hooks/helpers/setup_docker_group.sh | ssh -J $BASTION_HOST "ubuntu@$host" 'bash -s'
+done
