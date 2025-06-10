@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = "ew"
+  profile = var.aws_profile
   region  = "us-east-1"
 }
 
@@ -43,6 +43,11 @@ variable "dns_name" {
 
 variable "site_url" {
   description = "Site URL for the application"
+  type        = string
+}
+
+variable "aws_profile" {
+  description = "AWS profile to use for the deployment"
   type        = string
 }
 

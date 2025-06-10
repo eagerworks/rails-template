@@ -1,6 +1,6 @@
-image: rails-template/web-server
+image: <app_name>/web-server
 
-service: rails_template
+service: <app_name>
 
 servers:
   web:
@@ -16,7 +16,7 @@ proxy:
 registry:
   server: 111111111111.dkr.ecr.us-east-1.amazonaws.com # Replace with your ECR registry
   username: AWS
-  password: <%= %x(aws ecr --profile ew get-login-password) %>
+  password: <%= %x(aws ecr --profile <your-profile-name> get-login-password) %>
 
 env:
   secret:

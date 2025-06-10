@@ -1,0 +1,91 @@
+# Deployment
+
+## Infrastructure
+
+In the repo, we have a [terraform](https://developer.hashicorp.com/terraform) file (`main.tf`)
+to set up the infrastructure for the app using AWS.
+
+Here's a diagram that outlines the configured infrastructure:
+
+![Diagram of project infrastructure](<%= image_path('docs/infrastructure.png') %>)
+
+### Setting up
+
+To start, you need to install and configure the aws cli with your AWS credentials.
+We recommend creating a profile specifically for this project to avoid conflicts with other AWS
+projects you may have.
+You can do this by running the following command:
+
+```bash
+aws configure --profile <your-profile-name>
+```
+
+Also, you'll need to create an SSH key pair to connect to your EC2 instance.
+
+```bash
+ssh-keygen -t ed25519 -C <user-address>
+```
+
+Once you have your profile set up, add a `secret.tfvars` file with the following variables:
+
+```hcl
+deployer_key     = "ssh-ed25519 abc user@test.com" # SSH public key
+app_name         = "my-app" # Name of the app, used for naming resources in AWS, must not have spaces or underscores
+rails_master_key = "123456" # Rails master key for credentials
+db_password      = "123456" # Database password
+dns_name         = "my-app.com" # Name of the hosted zone on Route 53. You must create this hosted zone in advance.
+site_url         = "template.eagerworks.com" # URL of the site
+aws_profile      = "<your-profile-name>" # AWS profile name you created earlier
+```
+
+### Running Terraform
+
+Once you have everything ready, you can run the following
+commands to set up the infrastructure:
+
+```bash
+terraform init
+terraform plan -var-file=secret.tfvars
+terraform apply -var-file=secret.tfvars
+```
+
+This will initialize Terraform, show you the plan of what will be created,
+and then apply the changes to create the infrastructure.
+
+## Deployment
+
+For deployment, we are using [kamal](https://kamal-deploy.org).
+
+### Setting up Kamal
+
+Once terraform finishes running, the outputs should have the information you need fill in the
+`config/deploy.yml` file.
+
+You will need to set the following values in the `config/deploy.yml` file:
+
+```yaml
+image: <app_name>/web-server
+
+service: <app_name>
+
+servers:
+  web:
+    - &web_server <web server ip>
+
+registry:
+  server: 111111111111.dkr.ecr.us-east-1.amazonaws.com # Replace with your ECR registry
+  password: <%= %x(aws ecr --profile <your-profile-name> get-login-password) %>
+
+ssh:
+  proxy: ubuntu@<bastion public ip>
+```
+
+Also, make sure to edit the profile name and the bastion public IP address on the files
+`.kamal/secrets` and `.kamal/hooks/docker-setup`
+
+Once you have everything set up, you can run the following commands to deploy the app:
+
+```bash
+kamal setup # Currently this throws a docker permission error, but you can ignore it
+kamal deploy
+```
