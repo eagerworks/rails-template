@@ -1,10 +1,11 @@
-image: <app_name>/web-server
+image: <app-name>/web-server
 
-service: <app_name>
+service: <app-name>
 
 servers:
   web:
-    - &web_server <web server ip>
+    - <web-server-1>
+    - <web-server-2>
 
 proxy:
   app_port: 80
@@ -33,7 +34,7 @@ aliases:
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
 
 ssh:
-  proxy: ubuntu@<bastion public ip>
+  proxy: ubuntu@<bastion-host-ip>
   user: ubuntu
 
 asset_path: /rails/public/assets

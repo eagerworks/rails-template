@@ -29,13 +29,15 @@ ssh-keygen -t ed25519 -C <user-address>
 Once you have your profile set up, add a `secret.tfvars` file with the following variables:
 
 ```hcl
-deployer_key     = "ssh-ed25519 abc user@test.com" # SSH public key
+deployer_key     = "~/.ssh/key_name.pub" # Path to SSH public key
 app_name         = "my-app" # Name of the app, used for naming resources in AWS, must not have spaces or underscores
 rails_master_key = "123456" # Rails master key for credentials
 db_password      = "123456" # Database password
 dns_name         = "my-app.com" # Name of the hosted zone on Route 53. You must create this hosted zone in advance.
-site_url         = "template.eagerworks.com" # URL of the site
+site_url         = "app.my-app.com" # URL of the site
 aws_profile      = "<your-profile-name>" # AWS profile name you created earlier
+region           = "us-east-1" # AWS region to deploy the infrastructure
+servers_count    = 1 # Number of web servers to create
 ```
 
 ### Running Terraform
@@ -70,22 +72,37 @@ service: <app_name>
 
 servers:
   web:
-    - &web_server <web server ip>
+    - <web-server-1>
+    - <web-server-2>
 
 registry:
   server: 111111111111.dkr.ecr.us-east-1.amazonaws.com # Replace with your ECR registry
   password: <%= %x(aws ecr --profile <your-profile-name> get-login-password) %>
 
 ssh:
-  proxy: ubuntu@<bastion public ip>
+  proxy: ubuntu@<bastion-host-ip>
 ```
 
-Also, make sure to edit the profile name and the bastion public IP address on the files
-`.kamal/secrets` and `.kamal/hooks/docker-setup`
+Also, make sure to edit the profile name on the `.kamal/secrets` file.
 
 Once you have everything set up, you can run the following commands to deploy the app:
 
 ```bash
-kamal setup # Currently this throws a docker permission error, but you can ignore it
+kamal setup
+```
+
+### Deploying changes
+
+After the initial setup, you can deploy changes to your app using the following command:
+
+```bash
 kamal deploy
+```
+
+Also, kamal offers other commands to manage the app:
+
+```bash
+kamal console # Open a Rails console on the app
+kamal shell   # Open a shell on the app's container
+kamal logs    # Follow the logs of the app
 ```

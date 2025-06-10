@@ -9,13 +9,19 @@ terraform {
 
 provider "aws" {
   profile = var.aws_profile
-  region  = "us-east-1"
+  region  = var.region
 }
 
 # ==== Variables ====
 
+variable "region" {
+  description = "AWS region to deploy resources"
+  type        = string
+  default     = "us-east-1"
+}
+
 variable "deployer_key" {
-  description = "SSH public key for the deployer"
+  description = "SSH public key path for the deployer"
   type        = string
 }
 
@@ -51,6 +57,12 @@ variable "aws_profile" {
   type        = string
 }
 
+variable "servers_count" {
+  description = "Number of web servers to deploy"
+  type        = number
+  default     = 1
+}
+
 resource "aws_secretsmanager_secret" "rails_secrets" {
   name                    = "${var.app_name}/web_server_secrets"
   recovery_window_in_days = 0
@@ -69,6 +81,10 @@ resource "aws_secretsmanager_secret_version" "secrets" {
 
 # ===== VPC Configuration =====
 
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 }
@@ -80,7 +96,7 @@ resource "aws_eip" "nat_ip" {
 resource "aws_subnet" "private_subnet_1" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1c"
+  availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
     Name = "${var.app_name}-private-subnet-1"
@@ -90,7 +106,7 @@ resource "aws_subnet" "private_subnet_1" {
 resource "aws_subnet" "private_subnet_2" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.2.0/24"
-  availability_zone = "us-east-1b"
+  availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
     Name = "${var.app_name}-private-subnet-2"
@@ -100,7 +116,7 @@ resource "aws_subnet" "private_subnet_2" {
 resource "aws_subnet" "public_subnet_1" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-1c"
+  availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
     Name = "${var.app_name}-public-subnet-1"
@@ -110,7 +126,7 @@ resource "aws_subnet" "public_subnet_1" {
 resource "aws_subnet" "public_subnet_2" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.4.0/24"
-  availability_zone = "us-east-1b"
+  availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
     Name = "${var.app_name}-public-subnet-2"
@@ -180,7 +196,7 @@ resource "aws_route_table_association" "private_subnet_2_assoc" {
 
 resource "aws_key_pair" "deployer" {
   key_name   = "${var.app_name}-deployer-key"
-  public_key = var.deployer_key
+  public_key = file(var.deployer_key)
 }
 
 data "aws_ami" "ubuntu" {
@@ -188,7 +204,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 
   filter {
@@ -200,15 +216,23 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "app_server" {
+  for_each = tomap({
+    for i in range(var.servers_count) : i => {
+      subnet_id = i % 2 == 0 ? aws_subnet.private_subnet_1.id : aws_subnet.private_subnet_2.id
+    }
+  })
+
   ami             = data.aws_ami.ubuntu.id
   instance_type   = "t2.micro"
-  subnet_id       = aws_subnet.private_subnet_1.id
+  subnet_id       = each.value.subnet_id
   security_groups = [aws_security_group.web_server_sg.id]
   key_name        = aws_key_pair.deployer.key_name
 
   tags = {
-    Name = "${var.app_name}-web-server"
+    Name = "${var.app_name}-web-server-${each.key}"
   }
+
+  user_data = file("${path.module}/scripts/user_data.sh")
 }
 
 resource "aws_instance" "bastion_host" {
@@ -258,8 +282,10 @@ resource "aws_lb_listener" "web_server_listener" {
 }
 
 resource "aws_lb_target_group_attachment" "web_server_attachment" {
+  for_each = aws_instance.app_server
+
   target_group_arn = aws_lb_target_group.web_server_tg.arn
-  target_id        = aws_instance.app_server.id
+  target_id        = each.value.id
   port             = 80
 }
 
@@ -450,8 +476,10 @@ resource "aws_ecr_repository" "web_server_repo" {
 
 # ===== Outputs =====
 
-output "web_server_ip_addr" {
-  value = aws_instance.app_server.private_ip
+output "web_servers_ip_addr" {
+  value = {
+    for server in aws_instance.app_server : server.id => server.private_ip
+  }
 }
 
 output "bastion_ip_addr" {
