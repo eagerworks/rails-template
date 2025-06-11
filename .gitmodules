@@ -1,0 +1,3 @@
+[submodule "terraform-infrastructure"]
+	path = terraform-infrastructure
+	url = git@github.com:eagerworks/terraform-infrastructure.git
