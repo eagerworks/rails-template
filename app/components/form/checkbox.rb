@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Form
-  class CheckBox < Input
+  class Checkbox < Input
     use_helpers :check_box
     attr_reader :checked_value, :unchecked_value
 

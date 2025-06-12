@@ -16,9 +16,9 @@ class FormBuilder < ActionView::Helpers::FormBuilder
   rescue NameError => e
     if e.message.include?("uninitialized constant Form::#{component_name.camelize}")
       raise NameError, "missing form component: Form::#{component_name.camelize}"
-    else
-      raise e
     end
+
+    raise e
   end
 
   def respond_to_missing?(method_name, include_private = false)

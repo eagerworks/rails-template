@@ -1,0 +1,25 @@
+<%%= component_form_with(model: <%= singular_name %>) do |form| %>
+  <div class="border-b border-gray-900/10 pb-12">
+<% attributes.each do |attribute| -%>
+<% if attribute.field_type == :date_field -%>
+    <%%= form.date_picker_component :<%= attribute.column_name %> %>
+<% else -%>
+    <%%= form.<%= attribute.field_type %>_component :<%= attribute.column_name %> %>
+<% end -%>
+<% end -%>
+  </div>
+
+  <div class="mt-6 flex items-center justify-end gap-x-6">
+    <%%= link_button_component(href: :back, size: :lg, variant: :secondary) do %>
+      Cancel
+    <%% end %>
+
+    <%%= button_component(size: :lg) do %>
+      <%% if <%= singular_name %>.new_record? %>
+        Create <%= human_name.downcase %>
+      <%% else %>
+        Update <%= human_name.downcase %>
+      <%% end %>
+    <%% end %>
+  </div>
+<%% end %>

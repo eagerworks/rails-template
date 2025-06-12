@@ -1,0 +1,25 @@
+<tr>
+<% attributes.each_with_index do |attribute, index| -%>
+<% if index.zero? -%>
+  <%%= table_cell_component(align: :left) do %>
+<% else -%>
+  <%%= table_cell_component do %>
+<% end -%>
+    <%%= <%= singular_name %>.<%= attribute.column_name %> %>
+  <%% end %>
+<% end -%>
+
+  <%%= table_cell_component do %>
+    <div class="flex justify-end gap-2">
+      <%%= link_to <%= singular_name %>, class: 'text-indigo-600 hover:text-indigo-900' do %>
+        <%%= heroicon('eye', variant: 'outline', options: { class: 'size-5' }) %>
+      <%% end %>
+      <%%= link_to <%= edit_helper(singular_name, type: :path) %>, class: 'text-blue-600 hover:text-blue-900' do %>
+        <%%= heroicon('pencil', variant: 'outline', options: { class: 'size-5' }) %>
+      <%% end %>
+      <%%= link_to <%= singular_name %>, class: 'text-red-600 hover:text-red-900', data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do %>
+        <%%= heroicon('trash', variant: 'outline', options: { class: 'size-5' }) %>
+      <%% end %>
+    </div>
+  <%% end %>
+</tr>

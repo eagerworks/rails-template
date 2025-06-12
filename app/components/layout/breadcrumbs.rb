@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Layout
   class Breadcrumbs < BaseComponent
     use_helpers :heroicon
@@ -8,6 +9,8 @@ module Layout
       use_helpers :heroicon
 
       def initialize(href: nil)
+        super
+
         @href = href
       end
 

@@ -17,15 +17,16 @@
       <%% end %>
 
       <%%= table_component do |table| %>
-        <% attributes.each_with_index do |attribute, index| -%>
-          <% if index.zero? -%>
-            <%% table.with_header(align: :left).with_content('<%= attribute.column_name.humanize %>') %>
-          <% else -%>
-            <%% table.with_header_content('<%= attribute.column_name.humanize %>') %>
-          <% end -%>
-        <% end -%>
+<% attributes.each_with_index do |attribute, index| -%>
+<% if index.zero? -%>
+        <%% table.with_header(align: :left).with_content('<%= attribute.human_name %>') %>
+<% else -%>
+        <%% table.with_header_content('<%= attribute.human_name %>') %>
+<% end -%>
+<% end -%>
+        <%% table.with_header_content('') %>
 
-        <%%= render <%= plural_table_name %> %>
+        <%%= render @<%= plural_table_name %> %>
       <%% end %>
     <%% end %>
   </div>

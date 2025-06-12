@@ -12,7 +12,7 @@
           <%= form.text_field_component :password, type: 'password', autocomplete: 'current-password' %>
 
           <div class="flex items-center justify-between">
-            <%= form.check_box_component :remember_me %>
+            <%= form.checkbox_component :remember_me %>
 
             <div class="text-sm/6">
               <%= link_component(href: new_user_password_path) do %>

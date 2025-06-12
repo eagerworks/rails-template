@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Form::CheckBox, type: :component do
+RSpec.describe Form::Checkbox, type: :component do
   let(:name) { :admin }
   let(:form) { ActionView::Helpers::FormBuilder.new(:user, User.new, ActionView::Base.empty, {}) }
 
