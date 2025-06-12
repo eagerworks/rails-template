@@ -1,0 +1,28 @@
+<div class="mx-auto max-w-2xl lg:px-8 w-full my-8 lg:my-10">
+  <%%= breadcrumbs_component do |breadcrumbs| %>
+    <%% breadcrumbs.with_item(href: <%= index_helper(type: :path) %>).with_content('<%= human_name.pluralize %>') %>
+    <%% breadcrumbs.with_item(href: '#').with_content("##{@<%= singular_name %>.id}") %>
+  <%% end %>
+
+  <div class="mt-5">
+    <dl class="divide-y divide-gray-100">
+<% attributes.each do |attribute| -%>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm/6 font-medium text-gray-900"><%= attribute.human_name %></dt>
+        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
+          <%%= @<%= singular_name %>.<%= attribute.column_name %> %>
+        </dd>
+      </div>
+<% end -%>
+    </dl>
+  </div>
+
+  <div class="flex gap-2 mt-6">
+    <%%= link_button_component(href: <%= show_helper(type: :path) %>, size: :lg, color: :red, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }) do %>
+      Delete <%= human_name.downcase %>
+    <%% end %>
+    <%%= link_button_component(href: <%= edit_helper(type: :path) %>, size: :lg) do %>
+      Edit <%= human_name.downcase %>
+    <%% end %>
+  </div>
+</div>

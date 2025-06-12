@@ -1,0 +1,12 @@
+<%% content_for :title, "New <%= human_name.downcase %>" %>
+
+<div class="mx-auto max-w-2xl lg:px-8 w-full my-8 lg:my-10">
+  <%%= breadcrumbs_component do |breadcrumbs| %>
+    <%% breadcrumbs.with_item(href: <%= index_helper(type: :path) %>).with_content('<%= human_name.pluralize %>') %>
+    <%% breadcrumbs.with_item(href: '#').with_content('New') %>
+  <%% end %>
+
+  <div class="mt-5">
+    <%%= render "form", <%= singular_name %>: @<%= singular_name %> %>
+  </div>
+</div>

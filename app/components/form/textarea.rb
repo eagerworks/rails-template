@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module Form
-  class TextArea < TextField
+  class Textarea < TextField
   end
 end
