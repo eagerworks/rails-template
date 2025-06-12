@@ -1,0 +1,32 @@
+<%% content_for :title, "<%= human_name.pluralize %>" %>
+
+<div class="mx-auto max-w-7xl lg:px-8 w-full my-8 lg:my-10">
+  <%%= breadcrumbs_component do |breadcrumbs| %>
+    <%% breadcrumbs.with_item(href: '#').with_content('<%= human_name.pluralize %>') %>
+  <%% end %>
+
+  <div class="mt-5">
+    <%%= card_component(padding: false) do |card| %>
+      <%% card.with_header do %>
+        <div class="flex justify-between items-center">
+          <h2 class="text-base/7 font-semibold text-gray-900"><%= human_name.pluralize %></h2>
+          <%%= link_button_component(href: <%= new_helper(type: :path) %>, size: :lg) do %>
+            New <%= human_name.downcase %>
+          <%% end %>
+        </div>
+      <%% end %>
+
+      <%%= table_component do |table| %>
+        <% attributes.each_with_index do |attribute, index| -%>
+          <% if index.zero? -%>
+            <%% table.with_header(align: :left).with_content('<%= attribute.column_name.humanize %>') %>
+          <% else -%>
+            <%% table.with_header_content('<%= attribute.column_name.humanize %>') %>
+          <% end -%>
+        <% end -%>
+
+        <%%= render <%= plural_table_name %> %>
+      <%% end %>
+    <%% end %>
+  </div>
+</div>

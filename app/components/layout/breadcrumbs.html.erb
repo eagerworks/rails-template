@@ -1,0 +1,15 @@
+<nav class="flex" aria-label="Breadcrumb">
+  <ol role="list" class="flex items-center space-x-4">
+    <li>
+      <div>
+        <%= link_to root_path, class: "text-gray-400 hover:text-gray-500" do %>
+          <%= heroicon('home', options: { class: 'size-5' }) %>
+          <span class="sr-only">Home</span>
+        <% end %>
+      </div>
+    </li>
+    <% items.each do |item| %>
+      <%= item %>
+    <% end %>
+  </ol>
+</nav>
