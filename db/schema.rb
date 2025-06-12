@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_11_132710) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_11_125442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -100,20 +100,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_132710) do
     t.index ["webauthn_id"], name: "index_credentials_on_webauthn_id", unique: true
   end
 
-  create_table "friends", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.date "birth_date"
-    t.bigint "user_id", null: false
-    t.boolean "best_friend"
-    t.integer "awards"
-    t.float "height"
-    t.integer "gender"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_friends_on_user_id"
-  end
-
   create_table "noticed_events", force: :cascade do |t|
     t.string "type"
     t.string "record_type"
@@ -201,7 +187,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_132710) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "credentials", "users"
-  add_foreign_key "friends", "users"
   add_foreign_key "subscriptions", "accounts"
   add_foreign_key "subscriptions", "plans"
 end
