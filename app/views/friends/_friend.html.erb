@@ -1,0 +1,33 @@
+<tr>
+  <%= table_cell_component(align: :left) do %>
+    <%= friend.name %>
+  <% end %>
+  <%= table_cell_component do %>
+    <%= friend.birth_date %>
+  <% end %>
+  <%= table_cell_component do %>
+    <%= friend.best_friend ? 'Yes' : 'No' %>
+  <% end %>
+  <%= table_cell_component do %>
+    <%= friend.awards %>
+  <% end %>
+  <%= table_cell_component do %>
+    <%= friend.height %>
+  <% end %>
+  <%= table_cell_component do %>
+    <%= friend.gender %>
+  <% end %>
+  <%= table_cell_component do %>
+    <div class="flex justify-end gap-2">
+      <%= link_to friend, class: 'text-indigo-600 hover:text-indigo-900' do %>
+        <%= heroicon('eye', variant: 'outline', options: { class: 'size-5' }) %>
+      <% end %>
+      <%= link_to edit_friend_path(friend), class: 'text-blue-600 hover:text-blue-900' do %>
+        <%= heroicon('pencil', variant: 'outline', options: { class: 'size-5' }) %>
+      <% end %>
+      <%= link_to friend, class: 'text-red-600 hover:text-red-900', data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do %>
+        <%= heroicon('trash', variant: 'outline', options: { class: 'size-5' }) %>
+      <% end %>
+    </div>
+  <% end %>
+</tr>

@@ -1,0 +1,33 @@
+<%= component_form_with(model: friend) do |form| %>
+  <div class="border-b border-gray-900/10 pb-12">
+    <%= form.text_field_component :name %>
+
+    <%= form.text_area_component :description %>
+
+    <%= form.date_picker_component :birth_date %>
+
+    <%= form.select_component(:user_id, collection: User.all, label_method: :full_name) %>
+
+    <%= form.check_box_component :best_friend %>
+
+    <%= form.number_field_component :awards %>
+
+    <%= form.number_field_component :height %>
+
+    <%= form.select_component :gender, options: gender_options %>
+  </div>
+
+  <div class="mt-6 flex items-center justify-end gap-x-6">
+    <%= link_button_component(href: friends_path, size: :lg, variant: :secondary) do %>
+      Cancel
+    <% end %>
+
+    <%= button_component(size: :lg) do %>
+      <% if friend.new_record? %>
+        Create friend
+      <% else %>
+        Update friend
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
