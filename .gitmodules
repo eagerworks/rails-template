@@ -1,3 +1,4 @@
 [submodule "terraform/modules/eager-infrastructure"]
 	path = terraform/modules/eager-infrastructure
 	url = git@github.com:eagerworks/eager-infrastructure.git
+	branch = rails-template
