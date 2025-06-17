@@ -70,17 +70,8 @@ image: <app_name>/web-server
 
 service: <app_name>
 
-servers:
-  web:
-    - <web-server-1>
-    - <web-server-2>
-
 registry:
-  server: 111111111111.dkr.ecr.us-east-1.amazonaws.com # Replace with your ECR registry
   password: <%= %x(aws ecr --profile <your-profile-name> get-login-password) %>
-
-ssh:
-  proxy: ubuntu@<bastion-host-ip>
 ```
 
 Also, make sure to edit the profile name on the `.kamal/secrets` file.
