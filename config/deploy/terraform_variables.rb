@@ -1,7 +1,7 @@
 # Extract variables from terraform to use in kamal deploy config
 
 def terraform_output(name)
-  JSON.parse(%x(cd terraform/production && terraform output -json #{name}))
+  JSON.parse(`cd terraform/production && terraform output -json #{name}`)
 end
 
 def web_server_ips

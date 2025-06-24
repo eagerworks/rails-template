@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   draw :billing
+  draw :api
 
   namespace :accounts do
     resource :password, only: [:edit, :update]

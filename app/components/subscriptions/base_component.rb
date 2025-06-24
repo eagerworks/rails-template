@@ -2,7 +2,7 @@ module Subscriptions
   class BaseComponent < ViewComponent::Base
     attr_reader :subscription
 
-    delegate :plan, :canceled?, :active?, :on_grace_period?, to: :subscription
+    delegate :plan, :canceled?, :active?, :on_grace_period?, :paused?, to: :subscription
     delegate :name, to: :plan, prefix: true
     delegate :charge_per_unit?, :unit_label, to: :plan
 

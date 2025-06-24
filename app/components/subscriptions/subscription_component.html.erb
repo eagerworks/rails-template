@@ -5,6 +5,14 @@
         <div class="mb-2">
           <%= render Elements::Badge.new(color: :red).with_content('Canceled') %>
         </div>
+      <% elsif trial? %>
+        <div class="mb-2">
+          <%= render Elements::Badge.new(color: :blue).with_content('Trial') %>
+        </div>
+      <% elsif paused? %>
+        <div class="mb-2">
+          <%= render Elements::Badge.new(color: :yellow).with_content('Paused') %>
+        </div>
       <% end %>
       <h3 class="font-semibold text-gray-900"><%= plan_name %></h2>
       <p class="text-sm/6 text-gray-500">
@@ -17,7 +25,7 @@
       </p>
       <% if on_grace_period? %>
         <span class="text-sm/6 text-gray-500">
-          Your plan is canceled, but is still available until
+          Your plan is <%= subscription.status %>, but is still available until
           <%= subscription.ends_at.strftime('%b %d, %Y') %>.
         </span>
       <% elsif trial? %>

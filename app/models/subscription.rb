@@ -8,9 +8,9 @@ class Subscription < ApplicationRecord
 
   delegate :name, to: :plan, prefix: true
 
-  enum :status, { active: 0, canceled: 1 }
+  enum :status, { active: 0, canceled: 1, paused: 2 }
 
   def on_grace_period?
-    canceled? && ends_at > Time.current
+    !active? && ends_at > Time.current
   end
 end
