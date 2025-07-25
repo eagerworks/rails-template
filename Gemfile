@@ -72,7 +72,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 gem 'webauthn', '~> 3.4'
 
-gem 'pretender', '~> 0.5.0'
+gem 'pretender', '~> 0.6.0'
 
 # Manage notifications
 gem 'noticed', '~> 2.6'
