@@ -55,7 +55,7 @@ gem 'view_component', '~> 3.21'
 
 gem 'heroicon', '~> 1.0'
 
-gem 'activeadmin', '~> 4.0.0.beta15'
+gem 'activeadmin', '~> 4.0.0.beta16'
 
 gem 'importmap-rails', '~> 2.1'
 
