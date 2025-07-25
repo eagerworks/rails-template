@@ -35,13 +35,13 @@ jobs:
           bundler-cache: true
 
       - name: Rubocop
-        run: rubocop
+        run: bundle exec rubocop
 
       - name: Reek
-        run: reek
+        run: bundle exec reek
 
       - name: Rails best practices
-        run: rails_best_practices
+        run: bundle exec rails_best_practices
 
   test:
     runs-on: ubuntu-latest
