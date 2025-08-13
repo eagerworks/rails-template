@@ -90,7 +90,7 @@ group :development, :test do
   gem 'faker', '~> 3.5'
   gem 'rails_best_practices', '~> 1.23'
   gem 'reek', '~> 6.4'
-  gem 'rspec-rails', '~> 7.1'
+  gem 'rspec-rails', '~> 8.0'
   gem 'rubocop', '~> 1.70'
 end
 
