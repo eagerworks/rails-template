@@ -51,7 +51,7 @@ gem 'pundit', '~> 2.4'
 
 gem 'ransack', '~> 4.2'
 
-gem 'view_component', '~> 3.21'
+gem 'view_component', '~> 4.0'
 
 gem 'heroicon', '~> 1.0'
 
