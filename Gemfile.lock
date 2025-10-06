@@ -223,7 +223,8 @@ GEM
       has_scope (>= 0.6)
       railties (>= 7.0)
       responders (>= 2)
-    interactor (3.1.2)
+    interactor (3.2.0)
+      ostruct
     io-console (0.8.0)
     irb (1.14.3)
       rdoc (>= 4.0.0)
@@ -622,7 +623,7 @@ DEPENDENCIES
   heroicon (~> 1.0)
   image_processing (~> 1.2)
   importmap-rails (~> 2.1)
-  interactor (~> 3.1)
+  interactor (~> 3.2)
   jbuilder
   jsbundling-rails
   kamal
