@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FormBuilder < ActionView::Helpers::FormBuilder
-  def method_missing(method_name, *args, **kwargs, &block)
+  def method_missing(method_name, *args, **kwargs, &block) # rubocop:disable Metrics/AbcSize
     super and return unless method_name =~ /_component$/
 
     component_name = method_name.to_s.gsub('_component', '')
