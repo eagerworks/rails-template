@@ -75,7 +75,7 @@ gem 'webauthn', '~> 3.4'
 gem 'pretender', '~> 0.5.0'
 
 # Manage notifications
-gem 'noticed', '~> 2.6'
+gem 'noticed', '~> 2.9'
 
 group :development, :test do
   # See
