@@ -90,10 +90,9 @@ production:
   primary: &primary_production
     <<: *default
     database: rails_template_production
-    username: rails_template
     password: "<%= ENV['RDS_PASSWORD'] %>"
     host: <%= ENV['RDS_HOST'] %>
-    username: postgres
+    username: kamal_admin
   cache:
     <<: *primary_production
     database: rails_template_production_cache
