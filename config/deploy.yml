@@ -1,13 +1,12 @@
 # <% require_relative 'config/deploy/terraform_variables' %>
 
-image: <app-name>/web-server
+image: rails-template/web-server
 
-service: <app-name>
+service: rails-template
 
 servers:
-  web: <% web_server_ips.each do |web_server_ip| %>
-    - <%= web_server_ip %>
-    <% end %>
+  web: 
+    - 3.140.162.112
 
 proxy:
   app_port: 80
@@ -17,10 +16,9 @@ proxy:
     timeout: 5
 
 registry:
-  server: <%= ecr %>
+  server: 184967710807.dkr.ecr.us-east-2.amazonaws.com
   username: AWS
-  password: <%= %x(aws ecr --profile <your-profile-name> get-login-password) %>
-
+  password: <%= %x(aws ecr get-login-password --region us-east-2) %>
 env:
   secret:
     - RAILS_MASTER_KEY
@@ -36,7 +34,6 @@ aliases:
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
 
 ssh:
-  proxy: ubuntu@<%= bastion_ip %>
   user: ubuntu
 
 asset_path: /rails/public/assets
