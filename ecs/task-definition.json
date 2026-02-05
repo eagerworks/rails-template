@@ -20,10 +20,22 @@
       ],
       "command": ["bundle", "exec", "puma", "-C", "config/puma.rb"],
       "environment": [
-        { "name": "RAILS_ENV", "value": "production" },
-        { "name": "RACK_ENV", "value": "production" },
-        { "name": "RAILS_LOG_TO_STDOUT", "value": "1" }
+        { "name": "EXAMPLE_ENV", "value": "dev" }
       ],
+      "secrets": [
+            {
+                "name": "RDS_HOST",
+                "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:rails-template-dev-infra-42mt1k:RDS_HOST::"
+            },
+            {
+                "name": "RDS_PASSWORD",
+                "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:rails-template-dev-infra-42mt1k:RDS_PASSWORD::"
+            },
+            {
+                "name": "RDS_USERNAME",
+                "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:dev/rails-template-app-secrets-m7YaE3:RAILS_MASTER_KEY::"
+            }
+        ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {

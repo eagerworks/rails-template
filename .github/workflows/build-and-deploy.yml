@@ -3,12 +3,12 @@ name: Build and Deploy to ECS
 on:
   push:
     branches:
-      - main
+      - devops-onboarding
   workflow_dispatch:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: rails-template
+  ECR_REPOSITORY: rails-template-dev
   ECS_CLUSTER: rails-template-dev-cluster
   ECS_SERVICE: rails-template-dev-service
   CONTAINER_NAME: web
