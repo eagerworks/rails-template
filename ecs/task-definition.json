@@ -39,7 +39,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/rails-template",
+          "awslogs-group": "/ecs/rails-template-dev",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "web"
         }
