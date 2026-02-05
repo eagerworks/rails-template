@@ -4,8 +4,8 @@
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "512",
   "memory": "1024",
-  "executionRoleArn": "arn:aws:iam::184967710807:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::184967710807:role/ecsTaskRole",
+  "executionRoleArn": "arn:aws:iam::184967710807:role/rails-template-dev-task-execution-role",
+  "taskRoleArn": "arn:aws:iam::184967710807:role/rails-template-dev-task-role",
   "containerDefinitions": [
     {
       "name": "web",
