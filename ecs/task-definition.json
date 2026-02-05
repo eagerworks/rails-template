@@ -18,7 +18,6 @@
           "protocol": "tcp"
         }
       ],
-      "command": ["bundle", "exec", "puma", "-C", "config/puma.rb"],
       "environment": [
         { "name": "EXAMPLE_ENV", "value": "dev" }
       ],
@@ -43,6 +42,16 @@
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "web"
         }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:3000/up || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
       }
     }
   ]
