@@ -32,7 +32,7 @@
                 "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:rails-template-dev-infra-42mt1k:RDS_PASSWORD::"
             },
             {
-                "name": "RDS_USERNAME",
+                "name": "RAILS_MASTER_KEY",
                 "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:dev/rails-template-app-secrets-m7YaE3:RAILS_MASTER_KEY::"
             }
         ],
