@@ -44,6 +44,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
+          secrets: |
+            RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
           tags: |
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
