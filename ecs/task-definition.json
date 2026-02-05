@@ -1,0 +1,37 @@
+{
+  "family": "rails-template",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::184967710807:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::184967710807:role/ecsTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "web",
+      "image": "184967710807.dkr.ecr.us-east-1.amazonaws.com/rails-template-dev:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "command": ["bundle", "exec", "puma", "-C", "config/puma.rb"],
+      "environment": [
+        { "name": "RAILS_ENV", "value": "production" },
+        { "name": "RACK_ENV", "value": "production" },
+        { "name": "RAILS_LOG_TO_STDOUT", "value": "1" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/rails-template",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "web"
+        }
+      }
+    }
+  ]
+}
