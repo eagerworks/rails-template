@@ -24,15 +24,15 @@
       "secrets": [
             {
                 "name": "RDS_HOST",
-                "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:rails-template-dev-infra-42mt1k:RDS_HOST::"
+                "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:rails-template-dev-infra:RDS_HOST::"
             },
             {
                 "name": "RDS_PASSWORD",
-                "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:rails-template-dev-infra-42mt1k:RDS_PASSWORD::"
+                "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:rails-template-dev-infra:RDS_PASSWORD::"
             },
             {
                 "name": "RAILS_MASTER_KEY",
-                "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:rails-template-app-secrets-ABCub4:RAILS_MASTER_KEY::"
+                "valueFrom": "arn:aws:secretsmanager:us-east-1:184967710807:secret:rails-template-app-secrets:RAILS_MASTER_KEY::"
             }
         ],
       "logConfiguration": {

@@ -1,9 +1,6 @@
 name: Build and Deploy to ECS
 
 on:
-  push:
-    branches:
-      - devops-onboarding
   workflow_dispatch:
 
 env:
@@ -88,61 +85,33 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Copy image to regional ECR (DEBUG MODE - SKIPPED)
+      - name: Copy image to regional ECR
         run: |
           SOURCE_IMAGE="${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ needs.build.outputs.image-tag }}"
           TARGET_IMAGE="${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ needs.build.outputs.image-tag }}"
           
-          echo "🔍 DEBUG MODE: Would copy image to regional ECR"
-          echo "  Source: $SOURCE_IMAGE"
-          echo "  Target: $TARGET_IMAGE"
-          echo "  Region: ${{ matrix.region }}"
+          # Crear repositorio si no existe
+          aws ecr describe-repositories --repository-names ${{ env.ECR_REPOSITORY }} --region ${{ matrix.region }} 2>/dev/null || \
+          aws ecr create-repository --repository-name ${{ env.ECR_REPOSITORY }} --region ${{ matrix.region }}
           
-          # COMMENTED FOR DEBUG:
-          # aws ecr describe-repositories --repository-names ${{ env.ECR_REPOSITORY }} --region ${{ matrix.region }} 2>/dev/null || \
-          # aws ecr create-repository --repository-name ${{ env.ECR_REPOSITORY }} --region ${{ matrix.region }}
-          # if [ "${{ matrix.region }}" != "us-east-1" ]; then
-          #   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
-          #   docker pull $SOURCE_IMAGE
-          #   docker tag $SOURCE_IMAGE $TARGET_IMAGE
-          #   docker push $TARGET_IMAGE
-          # fi
+          # Copiar imagen usando ECR replication o re-tag
+          if [ "${{ matrix.region }}" != "us-east-1" ]; then
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
+            docker pull $SOURCE_IMAGE
+            docker tag $SOURCE_IMAGE $TARGET_IMAGE
+            docker push $TARGET_IMAGE
+          fi
 
       - name: Render regional task definition
         run: |
-          echo "🔍 Rendering task definition for region: ${{ matrix.region }}"
           sed -e "s|us-east-1|${{ matrix.region }}|g" \
               -e "s|184967710807.dkr.ecr.us-east-1.amazonaws.com/${{ env.ECR_REPOSITORY }}:latest|${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ needs.build.outputs.image-tag }}|g" \
               ecs/task-definition.json > task-definition-${{ matrix.region }}.json
-          echo "✅ Task definition created: task-definition-${{ matrix.region }}.json"
 
-      - name: Show rendered task definition (DEBUG)
-        run: |
-          echo "📄 Contents of task-definition-${{ matrix.region }}.json:"
-          echo "=================================================="
-          cat task-definition-${{ matrix.region }}.json
-          echo "=================================================="
-          
-          echo ""
-          echo "🔎 Verifying region replacements:"
-          echo "  Secrets ARNs should reference: ${{ matrix.region }}"
-          grep -E "secretsmanager|awslogs-region" task-definition-${{ matrix.region }}.json | head -10
-          
-          echo ""
-          echo "🔎 Verifying image URL:"
-          echo "  Should contain: ${{ steps.login-ecr.outputs.registry }}"
-          grep "image" task-definition-${{ matrix.region }}.json
-
-      - name: Deploy to ECS (DEBUG MODE - SKIPPED)
-        run: |
-          echo "🔍 DEBUG MODE: Would deploy to ECS"
-          echo "  Task Definition: task-definition-${{ matrix.region }}.json"
-          echo "  Service: ${{ matrix.service }}"
-          echo "  Cluster: ${{ matrix.cluster }}"
-          echo "  Region: ${{ matrix.region }}"
-          echo ""
-          echo "⚠️  Actual deployment SKIPPED for testing"
-          
-          # COMMENTED FOR DEBUG:
-          # aws ecs register-task-definition --cli-input-json file://task-definition-${{ matrix.region }}.json
-          # aws ecs update-service --cluster ${{ matrix.cluster }} --service ${{ matrix.service }} --force-new-deployment
+      - name: Deploy to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: task-definition-${{ matrix.region }}.json
+          service: ${{ matrix.service }}
+          cluster: ${{ matrix.cluster }}
+          wait-for-service-stability: true
