@@ -38,22 +38,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          secrets: |
-            RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
-          tags: |
-            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
-            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
-
-      - name: Export image tag
-        id: image
-        run: echo "tag=${{ github.sha }}" >> $GITHUB_OUTPUT
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
